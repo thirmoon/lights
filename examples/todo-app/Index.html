@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>VueFire Todo App Demo</title>
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="../../dist/vuefire.js"></script>
+</head>
+
+<body>
+
+  <div id="app">
+    <div id="inputSection">
+        <input v-model.trim="newUser.name" @keyup.enter="addUser" placeholder="new User Name">
+        <input v-model.trim="newUser.address" @keyup.enter="addUser" placeholder="new User address">
+        <input v-model.trim="newUser.year" @keyup.enter="addUser" placeholder="new User Id">
+        <input v-model.trim="newUser.month" @keyup.enter="addUser" placeholder="new User Id">
+        <input v-model.trim="newUser.day" @keyup.enter="addUser" placeholder="new User Id">
+        <input v-model.trim="newUser.hour" @keyup.enter="addUser" placeholder="new User Id">
+        <input v-model.trim="newUser.minute" @keyup.enter="addUser" placeholder="new User Id">
+        <input v-model.trim="newUser.isAftermoon" @keyup.enter="addUser" placeholder="new User Id">
+        <input v-model.trim="newUser.isChineeseYear" @keyup.enter="addUser" placeholder="new User Id">
+
+        <button v-on:click="addUser">Add Product</button>
+   
+
+
+
+    </div>
+    //<ul>
+        <li v-for="user in Users">
+            <input :value="user.name">
+            <input :value="user.address" >
+            <input :value="user.year" >
+            <input :value="user.month" >
+            <input :value="user.day" >
+            <input :value="user.hour" >
+            <input :value="user.minute" >
+            <input :value="user.isAftermoon" >
+            <input :value="user.isChineeseYear" >
+        </li>
+    </ul>
+
+
+</div>
+
+  <script>
+    /* global Vue, firebase */
+
+    var config = {
+      apiKey: 'AIzaSyBJykOkltgTEmq5bTCA5pxUUCI52Tghx6g',
+      authDomain: 'light-1a6d4.firebaseapp.com',
+      databaseURL: 'https://light-1a6d4.firebaseio.com/',
+      projectId: 'light-1a6d4',
+      storageBucket: 'light-1a6d4.appspot.com',
+      messagingSenderId: '66654715141'
+    }
+
+    var db = firebase.initializeApp(config).database()
+    var userRef = db.ref('User')
+    new Vue({
+      el: '#app',
+      data: {
+        newUser: {
+                    name: '',
+                    address: '',
+                    year:0,
+                    month:0,
+                    day:0,
+                    hour:0,
+                    minute:0,
+                    isAftermoon:false,
+                    isChineeseYear:false
+                }
+      },
+      firebase: {
+        Users: userRef.limitToLast(25),
+      },
+      methods: {
+        addUser: function () {
+          if (this.newUser) {
+            userRef.push({
+              name: this.newUser.name,
+              address:this.newUser.address,
+              year: this.newUser.year,
+              month: this.newUser.month,
+              day: this.newUser.day,
+              hour:this.newUser.hour,
+              minute:this.newUser.minute,
+              isAftermoon: this.newUser.isAftermoon,
+              isChineeseYear:this.newUser.isChineeseYear
+            })
+            this.newUser = {
+                    name: '',
+                    address: '',
+                    year:0,
+                    month:0,
+                    day:0,
+                    hour:0,
+                    minute:0,
+                    isAftermoon:false,
+                    isChineeseYear:false
+                }
+          }
+        },
+        updateProductText: function (todo, newText) {
+          userRef.child(todo['.key']).child('name').set(newText)
+        },
+        removeProduct: function (todo) {
+          userRef.child(todo['.key']).remove()
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
