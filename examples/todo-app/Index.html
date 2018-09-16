@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="utf-8">
-  <title>VueFire Todo App Demo</title>
+  <title>慈善亭 | 點燈系統</title>
+  <link rel="stylesheet" href="../../src/css/headquaters.css">
   <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="../../dist/vuefire.js"></script>
@@ -12,38 +13,60 @@
 <body>
 
   <div id="app">
-    <div id="inputSection">
-        <input v-model.trim="newUser.name" @keyup.enter="addUser" placeholder="new User Name">
-        <input v-model.trim="newUser.address" @keyup.enter="addUser" placeholder="new User address">
-        <input v-model.trim="newUser.year" @keyup.enter="addUser" placeholder="new User Id">
-        <input v-model.trim="newUser.month" @keyup.enter="addUser" placeholder="new User Id">
-        <input v-model.trim="newUser.day" @keyup.enter="addUser" placeholder="new User Id">
-        <input v-model.trim="newUser.hour" @keyup.enter="addUser" placeholder="new User Id">
-        <input v-model.trim="newUser.minute" @keyup.enter="addUser" placeholder="new User Id">
-        <input v-model.trim="newUser.isAftermoon" @keyup.enter="addUser" placeholder="new User Id">
-        <input v-model.trim="newUser.isChineeseYear" @keyup.enter="addUser" placeholder="new User Id">
+    <h1 class="page-title">慈善亭 | 點燈系統</h1>
+    <section id="admin-wrapper">
+        <div id="form-wrapper">
+          燈別：
+          <select v-model.trim="newUser.lightType">
+              　<option value="光明燈">光明燈</option>
+              　<option value="長明燈">長明燈</option>
+                <option value="安太歲">安太歲</option>
+                <option value="財神燈">財神燈</option>
+                <option value="藥師燈">藥師燈</option>
+            </select>
+          姓名：<input v-model.trim="newUser.name" placeholder="姓名">
+          <br>
+          生時八字<br>
+          <select v-model.trim="newUser.isChineeseYear">
+            　<option value="農曆">農曆</option>
+            　<option value="國曆">國曆</option>
+          </select>
+          民國
+          <input v-model.trim="newUser.year" placeholder="年" id="time">年
+          <input v-model.trim="newUser.month" placeholder="月" id="time">月
+          <input v-model.trim="newUser.day" placeholder="日" id="time">日
+          <br>
+          <select v-model.trim="newUser.isAftermoon">
+            　<option value="上午">上午</option>
+            　<option value="下午">下午</option>
+          </select>
+          <input v-model.trim="newUser.hour" placeholder="點" id="time">點
+          <input v-model.trim="newUser.minute" placeholder="時" id="time">時生
+          <br>
+          地址：<input v-model.trim="newUser.address" placeholder="地址" id="address">
+          <br>
+          備註：<input v-model.trim="newUser.memo" placeholder="備註" id="address">
+          <br>
+          <button v-on:click="addUser">新增</button>
+        </div>
+    </section>
 
-        <button v-on:click="addUser">Add Product</button>
-   
-
-
-
-    </div>
     //<ul>
-        <li v-for="user in Users">
-            <input :value="user.name">
-            <input :value="user.address" >
-            <input :value="user.year" >
-            <input :value="user.month" >
-            <input :value="user.day" >
-            <input :value="user.hour" >
-            <input :value="user.minute" >
-            <input :value="user.isAftermoon" >
-            <input :value="user.isChineeseYear" >
-        </li>
-    </ul>
-
-
+      <li v-for="user in Users">
+          <input :value="user.name">
+          <input :value="user.address" >
+          <input :value="user.year" >
+          <input :value="user.month" >
+          <input :value="user.day" >
+          <input :value="user.hour" >
+          <input :value="user.minute" >
+          <input :value="user.isAftermoon" >
+          <input :value="user.isChineeseYear" >
+          <input :value="user.lightType" >
+          <input :value="user.lightYear" >
+          <input :value="user.meom" >
+      </li>
+  </ul>
 </div>
 
   <script>
@@ -66,13 +89,16 @@
         newUser: {
                     name: '',
                     address: '',
-                    year:0,
-                    month:0,
-                    day:0,
-                    hour:0,
-                    minute:0,
-                    isAftermoon:false,
-                    isChineeseYear:false
+                    year:'',
+                    month:'',
+                    day:'',
+                    hour:'',
+                    minute:'',
+                    isAftermoon:'上午',
+                    isChineeseYear:'農曆',
+                    lightType:'安太歲',
+                    lightYear:'2018',
+                    memo:''
                 }
       },
       firebase: {
@@ -90,18 +116,24 @@
               hour:this.newUser.hour,
               minute:this.newUser.minute,
               isAftermoon: this.newUser.isAftermoon,
-              isChineeseYear:this.newUser.isChineeseYear
+              isChineeseYear:this.newUser.isChineeseYear,
+              lightType: this.newUser.lightType,
+              lightYear:this.newUser.lightYear,
+              memo:this.newUser.memo
             })
             this.newUser = {
                     name: '',
                     address: '',
-                    year:0,
-                    month:0,
-                    day:0,
-                    hour:0,
-                    minute:0,
-                    isAftermoon:false,
-                    isChineeseYear:false
+                    year:'',
+                    month:'',
+                    day:'',
+                    hour:'',
+                    minute:'',
+                    isAftermoon:'',
+                    isChineeseYear:'',
+                    lightType:'',
+                    lightYear:'',
+                    memo:''
                 }
           }
         },

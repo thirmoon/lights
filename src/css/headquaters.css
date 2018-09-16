@@ -19,13 +19,13 @@ h1.page-title {
     color:  #247BA0;
     letter-spacing: 1px;
     font-weight: 600;
+    font-family:'Microsoft JhengHei';
 }
 #admin-wrapper{
     font-size: var(--main-font-size);
     margin-top: 50px;
     width: 600px;
     margin: 20px auto 20px auto;
-    text-align: center;
     min-height: 600px;
     /* background-color: #F3FFBD; */
     background-color: #ffffff;
@@ -45,17 +45,48 @@ h1.page-title {
     border-bottom: 2px dashed #70C1B3;
     padding-left: 10px;
     padding-right: 10px;
+    font-family:'Microsoft JhengHei';
 }
 
 #form-wrapper > input {
-    width: 30%;
     height: 28px;
     /* background-color: #70C1B3; */
+    color: #247BA0;
+    border: 1px solid rgb(112, 159, 193);
+    padding-left: 5px;
+    border-radius: 5px;
+    margin: 8px;
+}
+
+#address {
+    width: 85%;
+    height: 28px;
+    /* background-color: #70C1B3; */
+    color: #247BA0;
+    border: 1px solid rgb(112, 159, 193);
+    padding-left: 5px;
+    border-radius: 5px;
+}
+
+#time{
+    width: 10%;
+    height: 28px;
+    /* background-color: #70C1B3; */
+    color: #247BA0;
+    border: 1px solid rgb(112, 159, 193);
+    padding-left: 5px;
+    border-radius: 5px;
+}
+
+#form-wrapper >select{
+    width: 15%;
+    height: 28px;
     color: #247BA0;
     border: 1px solid #70C1B3;
     padding-left: 5px;
     border-radius: 5px;
 }
+
 #form-wrapper > button {
     background-color: #70C1B3;
     padding: 6px 15px;
