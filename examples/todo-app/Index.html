@@ -25,7 +25,7 @@
                 <option value="藥師燈">藥師燈</option>
             </select>
           姓名：<input v-model.trim="newUser.name" placeholder="姓名">
-          電話<input v-model.trim="newUser.phone" placeholder="電話">
+          電話：<input v-model.trim="newUser.phone" placeholder="電話">
           <br>
           生時八字<br>
           <select v-model.trim="newUser.isChineeseYear">
@@ -55,43 +55,66 @@
             姓名：<input v-model.trim="search.name" placeholder="姓名">
             <button v-on:click="searchUser">搜尋</button>
         </div>
+        <ul>
+            <li v-for="user in searchResult.user">
+                <div id="form-wrapper">
+                    燈別：
+                    <select v-model.trim="newUser.lightType" value = user.lightType>
+                        　<option value="光明燈">光明燈</option>
+                        　<option value="長明燈">長明燈</option>
+                          <option value="安太歲">安太歲</option>
+                          <option value="財神燈">財神燈</option>
+                          <option value="藥師燈">藥師燈</option>
+                      </select>
+                    姓名：<input :value="user.name" v-model.trim="user.name" >
+                    電話：<input :value="user.phone" v-model.trim="user.phone" >
+                    <br>
+                    生時八字<br>
+                    <select v-model.trim="newUser.isChineeseYear" value = user.isChineeseYear>
+                      　<option value="農曆">農曆</option>
+                      　<option value="國曆">國曆</option>
+                    </select>
+                    民國
+                    <input :value="user.year" v-model.trim="user.year" id="time">年
+                    <input :value="user.month" v-model.trim="user.month"  id="time">月
+                    <input :value="user.day" v-model.trim="user.day"  id="time">日
+                    <br>
+                    <select value=user.isAftermoon v-model.trim="user.isAftermoon">
+                      　<option value="上午">上午</option>
+                      　<option value="下午">下午</option>
+                    </select>
+                    <input :value="user.hour" v-model.trim="user.hour" id="time">點
+                    <input :value="user.minute" v-model.trim="user.minute" id="time">時生
+                    <br>
+                    地址：<input :value="user.address" v-model.trim="user.address"  id="address">
+                    <br>
+                    備註：<input :value="user.memo" v-model.trim="user.memo"  id="memo">
+                    <br>
+                    <button v-on:click="searchUser">新增</button>
+                  </div>
+            </li>
+        </ul>
     </section>
 
-  //<ul>
-  //  <li v-for="user in Users">
-  //      <input :value="user.name">
-  //      <input :value="user.phone">
-  //      <input :value="user.address" >
-  //      <input :value="user.year" >
-  //      <input :value="user.month" >
-  //      <input :value="user.day" >
-  //      <input :value="user.hour" >
-  //      <input :value="user.minute" >
-  //      <input :value="user.isAftermoon" >
-  //      <input :value="user.isChineeseYear" >
-  //      <input :value="user.lightType" >
-  //      <input :value="user.lightYear" >
-  //      <input :value="user.meom" >
-  //  </li>
-  //</ul>
-
   <ul>
-      <li v-for="user in searchResult.user">
-          <input :value="user.name">
-          <input :value="user.phone">
-          <input :value="user.address" >
-          <input :value="user.year" >
-          <input :value="user.month" >
-          <input :value="user.day" >
-          <input :value="user.hour" >
-          <input :value="user.minute" >
-          <input :value="user.isAftermoon" >
-          <input :value="user.isChineeseYear" >
-          <input :value="user.lightType" >
-          <input :value="user.lightYear" >
-          <input :value="user.meom" >
-      </li>
+    <li v-for="user in Users">
+        <input :value="user.name">
+        <input :value="user.phone">
+        <input :value="user.address" >
+        <input :value="user.year" >
+        <input :value="user.month" >
+        <input :value="user.day" >
+        <input :value="user.hour" >
+        <input :value="user.minute" >
+        <input :value="user.isAftermoon" >
+        <input :value="user.isChineeseYear" >
+        <input :value="user.lightType" >
+        <input :value="user.lightYear" >
+        <input :value="user.meom" >
+    </li>
   </ul>
+
+
 </div>
 
   <script>
@@ -174,7 +197,7 @@
         },
         searchUser: function () {
           var self = this;
-          userRef.orderByChild('name').equalTo('test').on("value", function(snapshot) {
+          userRef.orderByChild('name').equalTo(this.search.name).on("value", function(snapshot) {
             self.searchResult.user = snapshot.val();
             snapshot.forEach(function(data) {
               
