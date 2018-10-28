@@ -48,12 +48,35 @@
           <br>
           備註：<input v-model.trim="newUser.memo" placeholder="備註" id="address">
           <br>
-          <button v-on:click="addUser">新增</button>
+          <button v-on:click="searchUser">新增</button>
+        </div>
+        <div id="form-wrapper">
+            <h1 class="page-title">慈善亭 | 搜尋系統</h1>
+            姓名：<input v-model.trim="search.name" placeholder="姓名">
+            <button v-on:click="searchUser">搜尋</button>
         </div>
     </section>
 
-    //<ul>
-      <li v-for="user in Users">
+  //<ul>
+  //  <li v-for="user in Users">
+  //      <input :value="user.name">
+  //      <input :value="user.phone">
+  //      <input :value="user.address" >
+  //      <input :value="user.year" >
+  //      <input :value="user.month" >
+  //      <input :value="user.day" >
+  //      <input :value="user.hour" >
+  //      <input :value="user.minute" >
+  //      <input :value="user.isAftermoon" >
+  //      <input :value="user.isChineeseYear" >
+  //      <input :value="user.lightType" >
+  //      <input :value="user.lightYear" >
+  //      <input :value="user.meom" >
+  //  </li>
+  //</ul>
+
+  <ul>
+      <li v-for="user in searchResult.user">
           <input :value="user.name">
           <input :value="user.phone">
           <input :value="user.address" >
@@ -102,7 +125,14 @@
                     lightType:'安太歲',
                     lightYear:'2018',
                     memo:''
-                }
+                },
+        search: {
+            name: ''
+        },
+        searchResult:{
+          result:'',
+          user:[]
+        }        
       },
       firebase: {
         Users: userRef.limitToLast(25),
@@ -141,6 +171,15 @@
                     memo:''
                 }
           }
+        },
+        searchUser: function () {
+          var self = this;
+          userRef.orderByChild('name').equalTo('test').on("value", function(snapshot) {
+            self.searchResult.user = snapshot.val();
+            snapshot.forEach(function(data) {
+              
+            });
+          });
         },
         updateProductText: function (todo, newText) {
           userRef.child(todo['.key']).child('name').set(newText)
