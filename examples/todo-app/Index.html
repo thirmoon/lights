@@ -25,6 +25,7 @@
                 <option value="藥師燈">藥師燈</option>
             </select>
           姓名：<input v-model.trim="newUser.name" placeholder="姓名">
+          電話<input v-model.trim="newUser.phone" placeholder="電話">
           <br>
           生時八字<br>
           <select v-model.trim="newUser.isChineeseYear">
@@ -54,6 +55,7 @@
     //<ul>
       <li v-for="user in Users">
           <input :value="user.name">
+          <input :value="user.phone">
           <input :value="user.address" >
           <input :value="user.year" >
           <input :value="user.month" >
@@ -88,6 +90,7 @@
       data: {
         newUser: {
                     name: '',
+                    phone:'',
                     address: '',
                     year:'',
                     month:'',
@@ -109,6 +112,7 @@
           if (this.newUser) {
             userRef.push({
               name: this.newUser.name,
+              phone:this.newUser.phone,
               address:this.newUser.address,
               year: this.newUser.year,
               month: this.newUser.month,
@@ -123,6 +127,7 @@
             })
             this.newUser = {
                     name: '',
+                    phone:'',
                     address: '',
                     year:'',
                     month:'',
