@@ -51,49 +51,49 @@
           <button v-on:click="addUser">新增</button>
         </div>
 
-        
+
         <div id="form-wrapper">
             <h1 class="page-title">慈善亭 | 搜尋系統</h1>
             姓名：<input v-model.trim="search.name" placeholder="姓名">
             <button v-on:click="searchUser">搜尋</button>
         </div>
         <ul>
-            <li v-for="user in searchResult.user">
+            <li v-for="data in searchResultData">
                 <div id="form-wrapper">
                     燈別
-                    <select v-model.trim="newUser.lightType" value = user.lightType>
+                    <select v-model.trim="data.user.lightType" value = user.lightType>
                         　<option value="光明燈">光明燈</option>
                         　<option value="長明燈">長明燈</option>
                           <option value="安太歲">安太歲</option>
                           <option value="財神燈">財神燈</option>
                           <option value="藥師燈">藥師燈</option>
                       </select>
-                    姓名<input :value="user.name" v-model.trim="user.name" >
-                    電話<input :value="user.phone" v-model.trim="user.phone" >
+                    姓名<input :value="data.user.name" v-model.trim="data.user.name" >
+                    電話<input :value="data.user.phone" v-model.trim="data.user.phone" >
                     <br>
                     生時八字<br>
-                    <select v-model.trim="newUser.isChineeseYear" value = user.isChineeseYear>
+                    <select v-model.trim="data.user.isChineeseYear" value = data.user.isChineeseYear>
                       　<option value="農曆">農曆</option>
                       　<option value="國曆">國曆</option>
                     </select>
                     民國
-                    <input :value="user.year" v-model.trim="user.year" id="time">年
-                    <input :value="user.month" v-model.trim="user.month"  id="time">月
-                    <input :value="user.day" v-model.trim="user.day"  id="time">日
+                    <input :value="data.user.year" v-model.trim="data.user.year" id="time">年
+                    <input :value="data.user.month" v-model.trim="data.user.month"  id="time">月
+                    <input :value="data.user.day" v-model.trim="data.user.day"  id="time">日
                     <br>
-                    <select value=user.isAftermoon v-model.trim="user.isAftermoon">
+                    <select value=data.user.isAftermoon v-model.trim="data.user.isAftermoon">
                       　<option value="上午">上午</option>
                       　<option value="下午">下午</option>
                     </select>
-                    <input :value="user.hour" v-model.trim="user.hour" id="time">點
-                    <input :value="user.minute" v-model.trim="user.minute" id="time">時生
+                    <input :value="data.user.hour" v-model.trim="data.user.hour" id="time">點
+                    <input :value="data.user.minute" v-model.trim="data.user.minute" id="time">時生
                     <br>
-                    地址：<input :value="user.address" v-model.trim="user.address"  id="address">
+                    地址：<input :value="data.user.address" v-model.trim="data.user.address"  id="address">
                     <br>
-                    備註：<input :value="user.memo" v-model.trim="user.memo"  id="memo">
+                    備註：<input :value="data.user.memo" v-model.trim="data.user.memo"  id="memo">
                     <br>
-                    <button v-on:click="searchUser">新增</button>
-                    <button v-on:click="modifyUser">新增</button>
+                    <button v-on:click="addUser">新增</button>
+                    <button v-on:click="updateUser(data)">更新</button>
                   </div>
             </li>
         </ul>
@@ -140,9 +140,10 @@
             name: ''
         },
         searchResult:{
-          result:'',
+          key:[],
           user:[]
-        }        
+        },
+        searchResultData:[],    
       },
       firebase: {
         Users: userRef.limitToLast(25),
@@ -187,14 +188,30 @@
         searchUser: function () {
           var self = this;
           userRef.orderByChild('name').equalTo(this.search.name).on("value", function(snapshot) {
-            self.searchResult.user = snapshot.val();
-            snapshot.forEach(function(data) {
-              
-            });
+            self.searchResult.user = Object.values(snapshot.val())
+              let i =0;
+              snapshot.forEach(function(data) {
+                self.searchResult.key[i]=data.key;
+                i++;
+              });
+              self.formatUser()
           });
+         
         },
-        updateProductText: function (todo, newText) {
-          userRef.child(todo['.key']).child('name').set(newText)
+        formatUser: function () {
+          let i = 0;
+          this.searchResultData=[]
+          for (let i =0 ;  i<this.searchResult.key.length;i++ ){
+            let userWithKey = { 
+              user:this.searchResult.user[i],
+              key:this.searchResult.key[i]}
+            this.searchResultData.push(userWithKey);
+          }
+        
+        },
+        updateUser: function (data) {
+          console.log(data);
+         userRef.child(data.key).set(data.user);
         },
         removeProduct: function (todo) {
           userRef.child(todo['.key']).remove()
