@@ -188,6 +188,7 @@
         searchUser: function () {
           var self = this;
           userRef.orderByChild('name').equalTo(this.search.name).on("value", function(snapshot) {
+            if(snapshot.val()){
             self.searchResult.user = Object.values(snapshot.val())
               let i =0;
               snapshot.forEach(function(data) {
@@ -195,6 +196,10 @@
                 i++;
               });
               self.formatUser()
+            }
+            else{
+              alert('無此資料')
+            }
           });
          
         },
@@ -210,7 +215,6 @@
         
         },
         updateUser: function (data) {
-          console.log(data);
          userRef.child(data.key).set(data.user);
         },
         removeProduct: function (todo) {
