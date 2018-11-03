@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="./src/css/headquaters.css">
   <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
-  <script src="ㄡ/dist/vuefire.js"></script>
+  <script src="./dist/vuefire.js"></script>
 </head>
 
 <body>
@@ -54,7 +54,6 @@
             <h1 class="page-title">慈善亭 | 搜尋系統</h1>
             姓名：<input v-model.trim="search.name" placeholder="姓名">
             <button v-on:click="searchUser">搜尋</button>
-            <button v-on:click="searchUser">輸出</button>
         </div>
         <ul>
             <li v-for="user in searchResult.user">
