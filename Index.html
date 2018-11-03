@@ -48,8 +48,10 @@
           <br>
           備註：<input v-model.trim="newUser.memo" placeholder="備註" id="address">
           <br>
-          <button v-on:click="searchUser">新增</button>
+          <button v-on:click="addUser">新增</button>
         </div>
+
+        
         <div id="form-wrapper">
             <h1 class="page-title">慈善亭 | 搜尋系統</h1>
             姓名：<input v-model.trim="search.name" placeholder="姓名">
@@ -91,6 +93,7 @@
                     備註：<input :value="user.memo" v-model.trim="user.memo"  id="memo">
                     <br>
                     <button v-on:click="searchUser">新增</button>
+                    <button v-on:click="modifyUser">新增</button>
                   </div>
             </li>
         </ul>
@@ -130,7 +133,8 @@
                     isChineeseYear:'農曆',
                     lightType:'安太歲',
                     lightYear:'2018',
-                    memo:''
+                    memo:'',
+                    modifyTime:Date.now()
                 },
         search: {
             name: ''
@@ -159,7 +163,8 @@
               isChineeseYear:this.newUser.isChineeseYear,
               lightType: this.newUser.lightType,
               lightYear:this.newUser.lightYear,
-              memo:this.newUser.memo
+              memo:this.newUser.memo,
+              modifyTime:this.newUser.modifyTime
             })
             this.newUser = {
                     name: '',
@@ -174,7 +179,8 @@
                     isChineeseYear:'',
                     lightType:'',
                     lightYear:'',
-                    memo:''
+                    memo:'',
+                    modifyTime:Date.now()
                 }
           }
         },
