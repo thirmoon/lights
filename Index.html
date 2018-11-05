@@ -23,6 +23,8 @@
                 <option value="安太歲">安太歲</option>
                 <option value="財神燈">財神燈</option>
                 <option value="藥師燈">藥師燈</option>
+                <option value="文昌燈">文昌燈</option>
+
             </select>
           姓名<input v-model.trim="newUser.name" placeholder="姓名">
           電話<input v-model.trim="newUser.phone" placeholder="電話">
@@ -67,6 +69,7 @@
                           <option value="安太歲">安太歲</option>
                           <option value="財神燈">財神燈</option>
                           <option value="藥師燈">藥師燈</option>
+                          <option value="文昌燈">文昌燈</option>
                       </select>
                     姓名<input :value="data.user.name" v-model.trim="data.user.name" >
                     電話<input :value="data.user.phone" v-model.trim="data.user.phone" >
@@ -92,7 +95,6 @@
                     <br>
                     備註：<input :value="data.user.memo" v-model.trim="data.user.memo"  id="memo">
                     <br>
-                    <button v-on:click="addUser">新增</button>
                     <button v-on:click="updateUser(data)">更新</button>
                   </div>
             </li>
@@ -176,10 +178,10 @@
                     day:'',
                     hour:'',
                     minute:'',
-                    isAftermoon:'',
-                    isChineeseYear:'',
-                    lightType:'',
-                    lightYear:'',
+                    isAftermoon:'上午',
+                    isChineeseYear:'農曆',
+                    lightType:'安太歲',
+                    lightYear:'2018',
                     memo:'',
                     modifyTime:Date.now()
                 }
@@ -216,6 +218,8 @@
         },
         updateUser: function (data) {
          userRef.child(data.key).set(data.user);
+         this.search.name='';
+         this.searchUser();
         },
         removeProduct: function (todo) {
           userRef.child(todo['.key']).remove()
