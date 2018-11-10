@@ -13,49 +13,9 @@
 <body>
 
   <div id="app">
-    <h1 class="page-title">慈善亭 | 點燈系統</h1>
     <section id="admin-wrapper">
         <div id="form-wrapper">
-          燈別
-          <select v-model.trim="newUser.lightType">
-              　<option value="光明燈">光明燈</option>
-              　<option value="長明燈">長明燈</option>
-                <option value="安太歲">安太歲</option>
-                <option value="財神燈">財神燈</option>
-                <option value="藥師燈">藥師燈</option>
-                <option value="文昌燈">文昌燈</option>
-
-            </select>
-          姓名<input v-model.trim="newUser.name" placeholder="姓名">
-          電話<input v-model.trim="newUser.phone" placeholder="電話">
-          <br>
-          生時八字<br>
-          <select v-model.trim="newUser.isChineeseYear">
-            　<option value="農曆">農曆</option>
-            　<option value="國曆">國曆</option>
-          </select>
-          民國
-          <input v-model.trim="newUser.year" placeholder="年" id="time">年
-          <input v-model.trim="newUser.month" placeholder="月" id="time">月
-          <input v-model.trim="newUser.day" placeholder="日" id="time">日
-          <br>
-          <select v-model.trim="newUser.isAftermoon">
-            　<option value="上午">上午</option>
-            　<option value="下午">下午</option>
-          </select>
-          <input v-model.trim="newUser.hour" placeholder="點" id="time">點
-          <input v-model.trim="newUser.minute" placeholder="時" id="time">時生
-          <br>
-          地址：<input v-model.trim="newUser.address" placeholder="地址" id="address">
-          <br>
-          備註：<input v-model.trim="newUser.memo" placeholder="備註" id="address">
-          <br>
-          <button v-on:click="addUser">新增</button>
-        </div>
-
-
-        <div id="form-wrapper">
-            <h1 class="page-title">慈善亭 | 搜尋系統</h1>
+            <h1 class="page-title">慈善亭 | 搜尋</h1>
             姓名：<input v-model.trim="search.name" placeholder="姓名">
             <button v-on:click="searchUser">搜尋</button>
         </div>
@@ -70,6 +30,7 @@
                           <option value="財神燈">財神燈</option>
                           <option value="藥師燈">藥師燈</option>
                           <option value="文昌燈">文昌燈</option>
+                          <option value="信徒">信徒</option>
                       </select>
                     姓名<input :value="data.user.name" v-model.trim="data.user.name" >
                     電話<input :value="data.user.phone" v-model.trim="data.user.phone" >
@@ -99,6 +60,44 @@
                   </div>
             </li>
         </ul>
+        <h1 class="page-title">慈善亭 | 新增</h1>
+        <div id="form-wrapper">
+          燈別
+          <select v-model.trim="newUser.lightType">
+              　<option value="光明燈">光明燈</option>
+              　<option value="長明燈">長明燈</option>
+                <option value="安太歲">安太歲</option>
+                <option value="財神燈">財神燈</option>
+                <option value="藥師燈">藥師燈</option>
+                <option value="文昌燈">文昌燈</option>
+                <option value="信徒">信徒</option>
+            </select>
+          姓名<input v-model.trim="newUser.name" placeholder="姓名">
+          電話<input v-model.trim="newUser.phone" placeholder="電話">
+          <br>
+          生時八字<br>
+          <select v-model.trim="newUser.isChineeseYear">
+            　<option value="農曆">農曆</option>
+            　<option value="國曆">國曆</option>
+          </select>
+          民國
+          <input v-model.trim="newUser.year" placeholder="年" id="time">年
+          <input v-model.trim="newUser.month" placeholder="月" id="time">月
+          <input v-model.trim="newUser.day" placeholder="日" id="time">日
+          <br>
+          <select v-model.trim="newUser.isAftermoon">
+            　<option value="上午">上午</option>
+            　<option value="下午">下午</option>
+          </select>
+          <input v-model.trim="newUser.hour" placeholder="點" id="time">點
+          <input v-model.trim="newUser.minute" placeholder="時" id="time">時生
+          <br>
+          地址：<input v-model.trim="newUser.address" placeholder="地址" id="address">
+          <br>
+          備註：<input v-model.trim="newUser.memo" placeholder="備註" id="address">
+          <br>
+          <button v-on:click="addUser">新增</button>
+        </div>
     </section>
 
 
@@ -133,7 +132,7 @@
                     minute:'',
                     isAftermoon:'上午',
                     isChineeseYear:'農曆',
-                    lightType:'安太歲',
+                    lightType:'光明燈',
                     lightYear:'2018',
                     memo:'',
                     modifyTime:Date.now()
@@ -180,7 +179,7 @@
                     minute:'',
                     isAftermoon:'上午',
                     isChineeseYear:'農曆',
-                    lightType:'安太歲',
+                    lightType:'光明燈',
                     lightYear:'2018',
                     memo:'',
                     modifyTime:Date.now()
