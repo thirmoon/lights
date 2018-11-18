@@ -217,8 +217,8 @@
         },
         updateUser: function (data) {
          userRef.child(data.key).set(data.user);
-         this.search.name='';
-         this.searchUser();
+         alert('更新完成')
+         location.reload();
         },
         removeProduct: function (todo) {
           userRef.child(todo['.key']).remove()
