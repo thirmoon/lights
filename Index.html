@@ -57,6 +57,7 @@
                     備註：<input :value="data.user.memo" v-model.trim="data.user.memo"  id="memo">
                     <br>
                     <button v-on:click="updateUser(data)">更新</button>
+                    <button v-on:click="removeUser(data)">刪除</button>
                   </div>
             </li>
         </ul>
@@ -221,8 +222,10 @@
          alert('更新完成')
          location.reload();
         },
-        removeProduct: function (todo) {
-          userRef.child(todo['.key']).remove()
+        removeUser: function (data) {
+          userRef.child(data.key).remove();
+          alert('刪除完成')
+          location.reload();
         }
       }
     })
