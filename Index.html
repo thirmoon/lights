@@ -22,16 +22,7 @@
         <ul>
             <li v-for="data in searchResultData">
                 <div id="form-wrapper">
-                    燈別
-                    <select v-model.trim="data.user.lightType" value = user.lightType>
-                        　<option value="光明燈">光明燈</option>
-                        　<option value="長明燈">長明燈</option>
-                          <option value="安太歲">安太歲</option>
-                          <option value="財神燈">財神燈</option>
-                          <option value="藥師燈">藥師燈</option>
-                          <option value="文昌燈">文昌燈</option>
-                          <option value="信徒">信徒</option>
-                      </select>
+            
                     姓名<input :value="data.user.name" v-model.trim="data.user.name" >
                     電話<input :value="data.user.phone" v-model.trim="data.user.phone" >
                     <br>
@@ -45,11 +36,8 @@
                     <input :value="data.user.month" v-model.trim="data.user.month"  id="time">月
                     <input :value="data.user.day" v-model.trim="data.user.day"  id="time">日
                     <br>
-                    <select value=data.user.isAftermoon v-model.trim="data.user.isAftermoon">
-                      　<option value="上午">上午</option>
-                      　<option value="下午">下午</option>
-                    </select>
-                    <input :value="data.user.hour" v-model.trim="data.user.hour" id="time">點
+             
+                    
                     <input :value="data.user.minute" v-model.trim="data.user.minute" id="time">時生
                     <br>
                     地址：<input :value="data.user.address" v-model.trim="data.user.address"  id="address">
@@ -63,16 +51,7 @@
         </ul>
         <h1 class="page-title">慈善亭 | 新增</h1>
         <div id="form-wrapper">
-          燈別
-          <select v-model.trim="newUser.lightType">
-              　<option value="光明燈">光明燈</option>
-              　<option value="長明燈">長明燈</option>
-                <option value="安太歲">安太歲</option>
-                <option value="財神燈">財神燈</option>
-                <option value="藥師燈">藥師燈</option>
-                <option value="文昌燈">文昌燈</option>
-                <option value="信徒">信徒</option>
-            </select>
+    
           姓名<input v-model.trim="newUser.name" placeholder="姓名">
           電話<input v-model.trim="newUser.phone" placeholder="電話">
           <br>
@@ -86,11 +65,7 @@
           <input v-model.trim="newUser.month" placeholder="月" id="time">月
           <input v-model.trim="newUser.day" placeholder="日" id="time">日
           <br>
-          <select v-model.trim="newUser.isAftermoon">
-            　<option value="上午">上午</option>
-            　<option value="下午">下午</option>
-          </select>
-          <input v-model.trim="newUser.hour" placeholder="點" id="time">點
+         
           <input v-model.trim="newUser.minute" placeholder="時" id="time">時生
           <br>
           地址：<input v-model.trim="newUser.address" placeholder="地址" id="address">
@@ -129,11 +104,11 @@
                     year:'',
                     month:'',
                     day:'',
-                    hour:'',
+                    hour:'0',
                     minute:'',
                     isAftermoon:'上午',
                     isChineeseYear:'農曆',
-                    lightType:'光明燈',
+                    lightType:'信徒',
                     lightYear:'2018',
                     memo:'',
                     modifyTime:Date.now()
@@ -176,11 +151,11 @@
                     year:'',
                     month:'',
                     day:'',
-                    hour:'',
+                    hour:'0',
                     minute:'',
                     isAftermoon:'上午',
                     isChineeseYear:'農曆',
-                    lightType:'光明燈',
+                    lightType:'信徒',
                     lightYear:'2018',
                     memo:'',
                     modifyTime:Date.now()
@@ -218,6 +193,13 @@
         
         },
         updateUser: function (data) {
+         console.log('data',data);
+         data.isAftermoon = '上午';
+         data.lightType = '信徒';
+         data.hour = 0;
+         console.log('data',data);
+
+        
          userRef.child(data.key).set(data.user);
          alert('更新完成')
          location.reload();
