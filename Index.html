@@ -82,7 +82,7 @@
   <script>
     /* global Vue, firebase */
 
-    var config = {
+    let config = {
       apiKey: 'AIzaSyBJykOkltgTEmq5bTCA5pxUUCI52Tghx6g',
       authDomain: 'light-1a6d4.firebaseapp.com',
       databaseURL: 'https://light-1a6d4.firebaseio.com/',
@@ -91,8 +91,8 @@
       messagingSenderId: '66654715141'
     }
 
-    var db = firebase.initializeApp(config).database()
-    var userRef = db.ref('User')
+    let db = firebase.initializeApp(config).database()
+    let userRef = db.ref('User')
     new Vue({
       el: '#app',
       data: {
@@ -163,7 +163,7 @@
           }
         },
         searchUser: function () {
-          var self = this;
+          let self = this;
           userRef.orderByChild('name').equalTo(this.search.name).on("value", function(snapshot) {
             if(snapshot.val()){
             self.searchResult.user = Object.values(snapshot.val())
@@ -181,7 +181,7 @@
          
         },
         searchUserByAddress: function () {
-          var self = this;
+          let self = this;
           userRef.orderByChild('address').equalTo(this.search.address).on("value", function(snapshot) {
             if(snapshot.val()){
             self.searchResult.user = Object.values(snapshot.val())
