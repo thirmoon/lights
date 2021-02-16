@@ -87,7 +87,7 @@ h1.page-title {
     border-radius: 5px;
 }
 
-#form-wrapper > button {
+#form-wrapper > button, #admin-wrapper> button {
     background-color: #70C1B3;
     padding: 6px 15px;
     border: 1px solid #63ac9f;
