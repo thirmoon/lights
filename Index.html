@@ -18,13 +18,16 @@
             <h1 class="page-title">慈善亭 | 搜尋</h1>
             姓名：<input v-model.trim="search.name" placeholder="姓名">
             <button v-on:click="searchUser">搜尋</button>
+            <br>
+            地址：<input v-model.trim="search.address" placeholder="地址" id="address">
+            <button v-on:click="searchUserByAddress">搜尋</button>
         </div>
         <ul>
             <li v-for="data in searchResultData">
                 <div id="form-wrapper">
             
-                    姓名<input :value="data.user.name" v-model.trim="data.user.name" >
-                    電話<input :value="data.user.phone" v-model.trim="data.user.phone" >
+                    姓名<input :name="data.user.name" v-model.trim="data.user.name" >
+                    電話<input :name="data.user.phone" v-model.trim="data.user.phone" >
                     <br>
                     生時八字<br>
                     <select v-model.trim="data.user.isChineeseYear" value = data.user.isChineeseYear>
@@ -32,14 +35,14 @@
                       　<option value="國曆">國曆</option>
                     </select>
                     民國
-                    <input :value="data.user.year" v-model.trim="data.user.year" id="time">年
-                    <input :value="data.user.month" v-model.trim="data.user.month"  id="time">月
-                    <input :value="data.user.day" v-model.trim="data.user.day"  id="time">日
-                    <input :value="data.user.minute" v-model.trim="data.user.minute" id="time">時生
+                    <input :name="data.user.year" v-model.trim="data.user.year" id="time">年
+                    <input :name="data.user.month" v-model.trim="data.user.month"  id="time">月
+                    <input :name="data.user.day" v-model.trim="data.user.day"  id="time">日
+                    <input :name="data.user.minute" v-model.trim="data.user.minute" id="time">時生
                     <br>
-                    地址：<input :value="data.user.address" v-model.trim="data.user.address"  id="address">
+                    地址：<input :name="data.user.address" v-model.trim="data.user.address"  id="address">
                     <br>
-                    備註：<input :value="data.user.memo" v-model.trim="data.user.memo"  id="memo">
+                    備註：<input :name="data.user.memo" v-model.trim="data.user.memo"  id="memo">
                     <br>
                     <button v-on:click="updateUser(data)">更新</button>
                     <button v-on:click="removeUser(data)">刪除</button>
@@ -162,6 +165,24 @@
         searchUser: function () {
           var self = this;
           userRef.orderByChild('name').equalTo(this.search.name).on("value", function(snapshot) {
+            if(snapshot.val()){
+            self.searchResult.user = Object.values(snapshot.val())
+              let i =0;
+              snapshot.forEach(function(data) {
+                self.searchResult.key[i]=data.key;
+                i++;
+              });
+              self.formatUser()
+            }
+            else{
+              alert('無此資料')
+            }
+          });
+         
+        },
+        searchUserByAddress: function () {
+          var self = this;
+          userRef.orderByChild('address').equalTo(this.search.address).on("value", function(snapshot) {
             if(snapshot.val()){
             self.searchResult.user = Object.values(snapshot.val())
               let i =0;
