@@ -154,24 +154,27 @@
         Users: userRef.limitToLast(25),
       },
       methods: {
-        addUser: function () {
-          if (this.newUser) {
-            userRef.push({
-              name: this.newUser.name,
-              phone:this.newUser.phone,
-              address:this.newUser.address,
-              year: this.newUser.year,
-              month: this.newUser.month,
-              day: this.newUser.day,
-              hour:this.newUser.hour,
-              minute:this.newUser.minute,
-              isAftermoon: this.newUser.isAftermoon,
-              isChineeseYear:this.newUser.isChineeseYear,
-              lightType: this.newUser.lightType,
-              lightYear:this.newUser.lightYear,
-              memo:this.newUser.memo,
+        addUserToFirebase:function(user){
+          userRef.push({
+              name: user.name,
+              phone:user.phone,
+              address:user.address,
+              year: user.year,
+              month: user.month,
+              day: user.day,
+              hour:user.hour,
+              minute:user.minute,
+              isAftermoon: user.isAftermoon,
+              isChineeseYear:user.isChineeseYear,
+              lightType: user.lightType,
+              lightYear:user.lightYear,
+              memo:user.memo,
               modifyTime:Date.now()
             })
+        },
+        addUser: function () {
+          if (this.newUser) {
+            this.addUserToFirebase(this.newUser);
             this.newUser = {
                     name: '',
                     phone:'',
@@ -195,22 +198,7 @@
           let self =this;
           if (this.copyUserData) {
             this.copyUserData.forEach(function(user){
-                userRef.push({
-                name: user.name,
-                phone:user.phone,
-                address:user.address,
-                year: user.year,
-                month: user.month,
-                day: user.day,
-                hour:user.hour,
-                minute:user.minute,
-                isAftermoon: user.isAftermoon,
-                isChineeseYear:user.isChineeseYear,
-                lightType: user.lightType,
-                lightYear:user.lightYear,
-                memo:user.memo,
-                modifyTime:Date.now()
-              })
+              self.addUserToFirebase(user);
             });
          
    
