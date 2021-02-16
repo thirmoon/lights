@@ -68,7 +68,7 @@
         <br>
         <button v-on:click="addUser">新增</button>
         <button v-on:click="copyUser">複製</button>
-        <button v-on:click="addMultipleUser">新增多筆</button>
+        <button v-on:click="addMultipleUser" v-bind:style="addMultipleUserStyle">新增多筆</button>
       </div>
     </section>
 
@@ -109,7 +109,10 @@
           memo: '',
           modifyTime: Date.now()
         },
-        copyUserData: []
+        copyUserData: [],
+        addMultipleUserStyle:{
+          display:'none'
+        }
       },
       firebase: {
         Users: userRef.limitToLast(25),
@@ -183,6 +186,7 @@
             modifyTime: Date.now()
           }
           this.copyUserData.push(user);
+          this.addMultipleUserStyle.display = 'unset'
         },
 
       }
