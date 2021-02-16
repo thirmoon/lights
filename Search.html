@@ -17,7 +17,40 @@
         <div id="form-wrapper">
             <h1 class="page-title">慈善亭</h1>
             <h1 class="page-title" > <a href="index.html">新增</a> | <a href="Search.html">搜尋</a> </h1>
+
+            姓名：<input v-model.trim="search.name" placeholder="姓名">
+            <button v-on:click="searchUser">搜尋</button>
+            <br>
+            地址：<input v-model.trim="search.address" placeholder="地址" id="address">
+            <button v-on:click="searchUserByAddress">搜尋</button>
         </div>
+        <ul>
+            <li v-for="data in searchResultData">
+                <div id="form-wrapper">
+            
+                    姓名<input :name="data.user.name" v-model.trim="data.user.name" >
+                    電話<input :name="data.user.phone" v-model.trim="data.user.phone" >
+                    <br>
+                    生時八字<br>
+                    <select v-model.trim="data.user.isChineeseYear" value = data.user.isChineeseYear>
+                      　<option value="農曆">農曆</option>
+                      　<option value="國曆">國曆</option>
+                    </select>
+                    民國
+                    <input :name="data.user.year" v-model.trim="data.user.year" id="time">年
+                    <input :name="data.user.month" v-model.trim="data.user.month"  id="time">月
+                    <input :name="data.user.day" v-model.trim="data.user.day"  id="time">日
+                    <input :name="data.user.minute" v-model.trim="data.user.minute" id="time">時生
+                    <br>
+                    地址：<input :name="data.user.address" v-model.trim="data.user.address"  id="address">
+                    <br>
+                    備註：<input :name="data.user.memo" v-model.trim="data.user.memo"  id="memo">
+                    <br>
+                    <button v-on:click="updateUser(data)">更新</button>
+                    <button v-on:click="removeUser(data)">刪除</button>
+                  </div>
+            </li>
+        </ul>
         <ul>
           <li v-for="data in copyUserData">
               <div id="form-wrapper">
@@ -44,32 +77,7 @@
                 </div>
           </li>
       </ul>
-        <h1 class="page-title">慈善亭 | 新增</h1>
-        <div id="form-wrapper">
-    
-          姓名<input v-model.trim="newUser.name" placeholder="姓名">
-          電話<input v-model.trim="newUser.phone" placeholder="電話">
-          <br>
-          生時八字<br>
-          <select v-model.trim="newUser.isChineeseYear">
-            　<option value="農曆">農曆</option>
-            　<option value="國曆">國曆</option>
-          </select>
-          民國
-          <input v-model.trim="newUser.year" placeholder="年" id="time">年
-          <input v-model.trim="newUser.month" placeholder="月" id="time">月
-          <input v-model.trim="newUser.day" placeholder="日" id="time">日
-          <input v-model.trim="newUser.minute" placeholder="時" id="time">時生
-        
-          <br>
-          地址：<input v-model.trim="newUser.address" placeholder="地址" id="address">
-          <br>
-          備註：<input v-model.trim="newUser.memo" placeholder="備註" id="address">
-          <br>
-          <button v-on:click="addUser">新增</button>
-          <button v-on:click="copyUser">複製</button>
-          <button v-on:click="addMultipleUser">新增多筆</button>
-        </div>
+
     </section>
 
 
@@ -109,6 +117,14 @@
                     memo:'',
                     modifyTime:Date.now()
                 },
+        search: {
+            name: ''
+        },
+        searchResult:{
+          key:[],
+          user:[]
+        },
+        searchResultData:[],    
         copyUserData:[]
       },
       firebase: {
@@ -184,7 +200,66 @@
                 }
          this.copyUserData.push(user);
         },
-
+        searchUser: function () {
+          let self = this;
+          userRef.orderByChild('name').equalTo(this.search.name).on("value", function(snapshot) {
+            if(snapshot.val()){
+            self.searchResult.user = Object.values(snapshot.val())
+              let i =0;
+              snapshot.forEach(function(data) {
+                self.searchResult.key[i]=data.key;
+                i++;
+              });
+              self.formatUser()
+            }
+            else{
+              alert('無此資料')
+            }
+          });
+         
+        },
+        searchUserByAddress: function () {
+          let self = this;
+          userRef.orderByChild('address').equalTo(this.search.address).on("value", function(snapshot) {
+            if(snapshot.val()){
+            self.searchResult.user = Object.values(snapshot.val())
+              let i =0;
+              snapshot.forEach(function(data) {
+                self.searchResult.key[i]=data.key;
+                i++;
+              });
+              self.formatUser()
+            }
+            else{
+              alert('無此資料')
+            }
+          });
+         
+        },
+        formatUser: function () {
+          let i = 0;
+          this.searchResultData=[]
+          for (let i =0 ;  i<this.searchResult.key.length;i++ ){
+            let userWithKey = { 
+              user:this.searchResult.user[i],
+              key:this.searchResult.key[i]}
+            this.searchResultData.push(userWithKey);
+          }
+        
+        },
+        updateUser: function (data) {
+         data.isAftermoon = '上午';
+         data.lightType = '信徒';
+         data.hour = 0;
+         userRef.child(data.key).set(data.user);
+         alert('更新完成')
+         location.reload();
+        },
+        removeUser: function (data) {
+          userRef.child(data.key).remove();
+          alert('刪除完成')
+          location.reload();
+        }
       }
     })
   </script>
