@@ -200,8 +200,6 @@
             this.copyUserData.forEach(function(user){
               self.addUserToFirebase(user);
             });
-         
-   
             this.copyUserData=[];
             location.reload();
           }
@@ -224,7 +222,6 @@
                     modifyTime:Date.now()
                 }
          this.copyUserData.push(user);
-         console.log(this.copyUserData)
         },
         searchUser: function () {
           let self = this;
