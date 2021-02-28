@@ -14,72 +14,72 @@
 
   <div id="app">
     <section id="admin-wrapper">
-        <div id="form-wrapper">
-            <h1 class="page-title">慈善亭 | 搜尋</h1>
-            姓名：<input v-model.trim="search.name" placeholder="姓名">
-            <button v-on:click="searchUser">搜尋</button>
-        </div>
-        <ul>
-            <li v-for="data in searchResultData">
-                <div id="form-wrapper">
-            
-                    姓名<input :value="data.user.name" v-model.trim="data.user.name" >
-                    電話<input :value="data.user.phone" v-model.trim="data.user.phone" >
-                    <br>
-                    生時八字<br>
-                    <select v-model.trim="data.user.isChineeseYear" value = data.user.isChineeseYear>
-                      　<option value="農曆">農曆</option>
-                      　<option value="國曆">國曆</option>
-                    </select>
-                    民國
-                    <input :value="data.user.year" v-model.trim="data.user.year" id="time">年
-                    <input :value="data.user.month" v-model.trim="data.user.month"  id="time">月
-                    <input :value="data.user.day" v-model.trim="data.user.day"  id="time">日
-                    <input :value="data.user.minute" v-model.trim="data.user.minute" id="time">時生
-                    <br>
-                    地址：<input :value="data.user.address" v-model.trim="data.user.address"  id="address">
-                    <br>
-                    備註：<input :value="data.user.memo" v-model.trim="data.user.memo"  id="memo">
-                    <br>
-                    <button v-on:click="updateUser(data)">更新</button>
-                    <button v-on:click="removeUser(data)">刪除</button>
-                  </div>
-            </li>
-        </ul>
-        <h1 class="page-title">慈善亭 | 新增</h1>
-        <div id="form-wrapper">
-    
-          姓名<input v-model.trim="newUser.name" placeholder="姓名">
-          電話<input v-model.trim="newUser.phone" placeholder="電話">
-          <br>
-          生時八字<br>
-          <select v-model.trim="newUser.isChineeseYear">
-            　<option value="農曆">農曆</option>
-            　<option value="國曆">國曆</option>
-          </select>
-          民國
-          <input v-model.trim="newUser.year" placeholder="年" id="time">年
-          <input v-model.trim="newUser.month" placeholder="月" id="time">月
-          <input v-model.trim="newUser.day" placeholder="日" id="time">日
-          <input v-model.trim="newUser.minute" placeholder="時" id="time">時生
-        
-          <br>
-          地址：<input v-model.trim="newUser.address" placeholder="地址" id="address">
-          <br>
-          備註：<input v-model.trim="newUser.memo" placeholder="備註" id="address">
-          <br>
-          <button v-on:click="addUser">新增</button>
-        </div>
+      <div id="form-wrapper">
+        <h1 class="page-title">慈善亭</h1>
+        <h1 class="page-title"> <a href="index.html">新增</a> | <a href="Search.html">搜尋</a> </h1>
+      </div>
+      <ul>
+        <li v-for="data in copyUserData">
+          <div id="form-wrapper">
+
+            姓名<input :name="data.name" v-model.trim="data.name">
+            電話<input :name="data.phone" v-model.trim="data.phone">
+            <br>
+            生時八字<br>
+            <select v-model.trim="data.isChineeseYear" value=data.isChineeseYear>
+              　<option value="農曆">農曆</option>
+              　<option value="國曆">國曆</option>
+            </select>
+            民國
+            <input :name="data.year" v-model.trim="data.year" id="time">年
+            <input :name="data.month" v-model.trim="data.month" id="time">月
+            <input :name="data.day" v-model.trim="data.day" id="time">日
+            <input :name="data.minute" v-model.trim="data.minute" id="time">時生
+            <br>
+            地址：<input :name="data.address" v-model.trim="data.address" id="address">
+            <br>
+            備註：<input :name="data.memo" v-model.trim="data.memo" id="memo">
+            <br>
+
+          </div>
+        </li>
+      </ul>
+      <h1 class="page-title">慈善亭 | 新增</h1>
+      <div id="form-wrapper">
+
+        姓名<input v-model.trim="newUser.name" placeholder="姓名">
+        電話<input v-model.trim="newUser.phone" placeholder="電話">
+        <br>
+        生時八字<br>
+        <select v-model.trim="newUser.isChineeseYear">
+          　<option value="農曆">農曆</option>
+          　<option value="國曆">國曆</option>
+        </select>
+        民國
+        <input v-model.trim="newUser.year" placeholder="年" id="time">年
+        <input v-model.trim="newUser.month" placeholder="月" id="time">月
+        <input v-model.trim="newUser.day" placeholder="日" id="time">日
+        <input v-model.trim="newUser.minute" placeholder="時" id="time">時生
+
+        <br>
+        地址：<input v-model.trim="newUser.address" placeholder="地址" id="address">
+        <br>
+        備註：<input v-model.trim="newUser.memo" placeholder="備註" id="address">
+        <br>
+        <button v-on:click="addUser">新增</button>
+        <button v-on:click="copyUser">複製</button>
+        <button v-on:click="addMultipleUser" v-bind:style="addMultipleUserStyle">新增多筆</button>
+      </div>
     </section>
 
 
 
-</div>
+  </div>
 
   <script>
     /* global Vue, firebase */
 
-    var config = {
+    let config = {
       apiKey: 'AIzaSyBJykOkltgTEmq5bTCA5pxUUCI52Tghx6g',
       authDomain: 'light-1a6d4.firebaseapp.com',
       databaseURL: 'https://light-1a6d4.firebaseio.com/',
@@ -88,119 +88,107 @@
       messagingSenderId: '66654715141'
     }
 
-    var db = firebase.initializeApp(config).database()
-    var userRef = db.ref('User')
+    let db = firebase.initializeApp(config).database()
+    let userRef = db.ref('User')
     new Vue({
       el: '#app',
       data: {
         newUser: {
-                    name: '',
-                    phone:'',
-                    address: '',
-                    year:'',
-                    month:'',
-                    day:'',
-                    hour:'0',
-                    minute:'',
-                    isAftermoon:'上午',
-                    isChineeseYear:'農曆',
-                    lightType:'信徒',
-                    lightYear:'2018',
-                    memo:'',
-                    modifyTime:Date.now()
-                },
-        search: {
-            name: ''
+          name: '',
+          phone: '',
+          address: '',
+          year: '',
+          month: '',
+          day: '',
+          hour: '0',
+          minute: '',
+          isAftermoon: '上午',
+          isChineeseYear: '農曆',
+          lightType: '信徒',
+          lightYear: '2018',
+          memo: '',
+          modifyTime: Date.now()
         },
-        searchResult:{
-          key:[],
-          user:[]
-        },
-        searchResultData:[],    
+        copyUserData: [],
+        addMultipleUserStyle:{
+          display:'none'
+        }
       },
       firebase: {
         Users: userRef.limitToLast(25),
       },
       methods: {
+        addUserToFirebase: function (user) {
+          userRef.push({
+            name: user.name,
+            phone: user.phone,
+            address: user.address,
+            year: user.year,
+            month: user.month,
+            day: user.day,
+            hour: user.hour,
+            minute: user.minute,
+            isAftermoon: user.isAftermoon,
+            isChineeseYear: user.isChineeseYear,
+            lightType: user.lightType,
+            lightYear: user.lightYear,
+            memo: user.memo,
+            modifyTime: Date.now()
+          })
+        },
         addUser: function () {
           if (this.newUser) {
-            userRef.push({
-              name: this.newUser.name,
-              phone:this.newUser.phone,
-              address:this.newUser.address,
-              year: this.newUser.year,
-              month: this.newUser.month,
-              day: this.newUser.day,
-              hour:this.newUser.hour,
-              minute:this.newUser.minute,
-              isAftermoon: this.newUser.isAftermoon,
-              isChineeseYear:this.newUser.isChineeseYear,
-              lightType: this.newUser.lightType,
-              lightYear:this.newUser.lightYear,
-              memo:this.newUser.memo,
-              modifyTime:this.newUser.modifyTime
-            })
+            this.addUserToFirebase(this.newUser);
             this.newUser = {
-                    name: '',
-                    phone:'',
-                    address: '',
-                    year:'',
-                    month:'',
-                    day:'',
-                    hour:'0',
-                    minute:'',
-                    isAftermoon:'上午',
-                    isChineeseYear:'農曆',
-                    lightType:'信徒',
-                    lightYear:'2018',
-                    memo:'',
-                    modifyTime:Date.now()
-                }
-                location.reload();
+              name: '',
+              phone: '',
+              address: '',
+              year: '',
+              month: '',
+              day: '',
+              hour: '0',
+              minute: '',
+              isAftermoon: '上午',
+              isChineeseYear: '農曆',
+              lightType: '信徒',
+              lightYear: '2018',
+              memo: '',
+              modifyTime: Date.now()
+            }
+            location.reload();
           }
         },
-        searchUser: function () {
-          var self = this;
-          userRef.orderByChild('name').equalTo(this.search.name).on("value", function(snapshot) {
-            if(snapshot.val()){
-            self.searchResult.user = Object.values(snapshot.val())
-              let i =0;
-              snapshot.forEach(function(data) {
-                self.searchResult.key[i]=data.key;
-                i++;
-              });
-              self.formatUser()
-            }
-            else{
-              alert('無此資料')
-            }
-          });
-         
-        },
-        formatUser: function () {
-          let i = 0;
-          this.searchResultData=[]
-          for (let i =0 ;  i<this.searchResult.key.length;i++ ){
-            let userWithKey = { 
-              user:this.searchResult.user[i],
-              key:this.searchResult.key[i]}
-            this.searchResultData.push(userWithKey);
+        addMultipleUser: function () {
+          let self = this;
+          if (this.copyUserData) {
+            this.copyUserData.forEach(function (user) {
+              self.addUserToFirebase(user);
+            });
+            this.copyUserData = [];
+            location.reload();
           }
-        
         },
-        updateUser: function (data) {
-         data.isAftermoon = '上午';
-         data.lightType = '信徒';
-         data.hour = 0;
-         userRef.child(data.key).set(data.user);
-         alert('更新完成')
-         location.reload();
+        copyUser: function () {
+          let user = {
+            name: '',
+            phone: '',
+            address: this.newUser.address,
+            year: '',
+            month: '',
+            day: '',
+            hour: '0',
+            minute: '',
+            isAftermoon: '上午',
+            isChineeseYear: '農曆',
+            lightType: '信徒',
+            lightYear: '2018',
+            memo: '',
+            modifyTime: Date.now()
+          }
+          this.copyUserData.push(user);
+          this.addMultipleUserStyle.display = 'unset'
         },
-        removeUser: function (data) {
-          userRef.child(data.key).remove();
-          alert('刪除完成')
-          location.reload();
-        }
+
       }
     })
   </script>
