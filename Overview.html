@@ -73,11 +73,6 @@
     new Vue({
       el: '#app',
       data: {
-
-        overviewDataWithKey: {
-          key: [],
-          user: []
-        },
         overviewData: [],
         copyUserData: [],
         addMultipleUserStyle: {
@@ -103,18 +98,7 @@
             });
           });
         },
-        formatUser: function () {
-          let i = 0;
-          this.overviewData = []
-          for (let i = 0; i < this.overviewDataWithKey.key.length; i++) {
-            let userWithKey = {
-              user: this.overviewDataWithKey.user[i],
-              key: this.overviewDataWithKey.key[i]
-            }
-            this.overviewData.push(userWithKey);
-          }
 
-        },
 
         updateUser: function (data) {
           data.isAftermoon = '上午';
@@ -129,33 +113,25 @@
           alert('刪除完成')
           location.reload();
         },
-        addMultipleUser: function () {
-          let self = this;
-          if (this.copyUserData) {
-            this.copyUserData.forEach(function (user) {
-              self.addUserToFirebase(user);
-            });
-            this.copyUserData = [];
-            location.reload();
-          }
-        },
-        addUserToFirebase: function (user) {
-          userRef.push({
-            name: user.name,
-            phone: user.phone,
-            address: user.address,
-            year: user.year,
-            month: user.month,
-            day: user.day,
-            hour: user.hour,
-            minute: user.minute,
-            isAftermoon: user.isAftermoon,
-            isChineeseYear: user.isChineeseYear,
-            lightType: user.lightType,
-            lightYear: user.lightYear,
-            memo: user.memo,
+        copyUser: function (data) {
+          let user = {
+            name: '',
+            phone: '',
+            address: data.user.address,
+            year: '',
+            month: '',
+            day: '',
+            hour: '0',
+            minute: '',
+            isAftermoon: '上午',
+            isChineeseYear: '農曆',
+            lightType: '信徒',
+            lightYear: '2018',
+            memo: '',
             modifyTime: Date.now()
-          })
+          }
+          this.copyUserData.push(user);
+          this.addMultipleUserStyle.display = 'unset'
         },
       }
     })
