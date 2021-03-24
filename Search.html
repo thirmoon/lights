@@ -142,19 +142,18 @@
         },
         searchUserByAddress: function () {
           let self = this;
-          userRef.orderByChild('address').equalTo(this.search.address).on("value", function (snapshot) {
-            if (snapshot.val()) {
-              self.searchResult.user = Object.values(snapshot.val())
-              let i = 0;
+          this.searchResultData = []
+          userRef.once("value", function (snapshot) {
+            userRef.once("value", function (snapshot) {
               snapshot.forEach(function (data) {
-                self.searchResult.key[i] = data.key;
-                i++;
+                let user = data.val();
+                if (user.address.includes(self.search.address)) {
+                  user.key = data.key;
+                  self.searchResultData.push(user);
+                }
               });
-              self.formatUser()
-            }
-            else {
-              alert('無此資料')
-            }
+            });
+         
           });
 
         },
