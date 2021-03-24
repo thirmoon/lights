@@ -88,8 +88,6 @@
         Users: userRef.limitToLast(25),
       },
       methods: {
-
-
         loadData: function () {
           let self = this;
           this.overviewData = []
@@ -101,16 +99,10 @@
                 user.key = data.key;
                 self.overviewData.push(user);
               }
-
               i++;
             });
-            console.log('Finish');
-            console.log(self.overviewData[0])
-          
           });
-
         },
-
         formatUser: function () {
           let i = 0;
           this.overviewData = []
