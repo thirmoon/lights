@@ -24,23 +24,23 @@
         <li v-for="data in overviewData">
           <div id="form-wrapper">
 
-            姓名<input :name="data.user.name" v-model.trim="data.user.name">
-            電話<input :name="data.user.phone" v-model.trim="data.user.phone">
+            姓名<input :name="data.name" v-model.trim="data.name">
+            電話<input :name="data.phone" v-model.trim="data.phone">
             <br>
             生時八字<br>
-            <select v-model.trim="data.user.isChineeseYear" value=data.user.isChineeseYear>
+            <select v-model.trim="data.isChineeseYear" value=data.isChineeseYear>
               　<option value="農曆">農曆</option>
               　<option value="國曆">國曆</option>
             </select>
             民國
-            <input :name="data.user.year" v-model.trim="data.user.year" id="time">年
-            <input :name="data.user.month" v-model.trim="data.user.month" id="time">月
-            <input :name="data.user.day" v-model.trim="data.user.day" id="time">日
-            <input :name="data.user.minute" v-model.trim="data.user.minute" id="time">時生
+            <input :name="data.year" v-model.trim="data.year" id="time">年
+            <input :name="data.month" v-model.trim="data.month" id="time">月
+            <input :name="data.day" v-model.trim="data.day" id="time">日
+            <input :name="data.minute" v-model.trim="data.minute" id="time">時生
             <br>
-            地址：<input :name="data.user.address" v-model.trim="data.user.address" id="address">
+            地址：<input :name="data.address" v-model.trim="data.address" id="address">
             <br>
-            備註：<input :name="data.user.memo" v-model.trim="data.user.memo" id="memo">
+            備註：<input :name="data.memo" v-model.trim="data.memo" id="memo">
             <br>
             <button v-on:click="updateUser(data)">更新</button>
             <button v-on:click="removeUser(data)">刪除</button>
@@ -48,8 +48,8 @@
           </div>
         </li>
       </ul>
-     
-      <button v-on:click="addMultipleUser" v-bind:style="addMultipleUserStyle">新增多筆</button>
+
+
     </section>
 
 
@@ -73,7 +73,7 @@
     new Vue({
       el: '#app',
       data: {
-    
+
         overviewDataWithKey: {
           key: [],
           user: []
@@ -94,17 +94,19 @@
           let self = this;
           this.overviewData = []
           userRef.once("value", function (snapshot) {
-              snapshot.forEach(function (data) {
-
-                
-                let user =data.val();
+            let i = 0;
+            snapshot.forEach(function (data) {
+              if (i < 100) {
+                let user = data.val();
                 user.key = data.key;
-             
                 self.overviewData.push(user);
-               console.log(self.overviewData.length)
-              });
-        
-            
+              }
+
+              i++;
+            });
+            console.log('Finish');
+            console.log(self.overviewData[0])
+          
           });
 
         },
