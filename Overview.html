@@ -4,10 +4,16 @@
 <head>
   <meta charset="utf-8">
   <title>慈善亭 | 點燈系統</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="./src/css/headquaters.css">
+  <link rel="stylesheet" href="./src/css/overview.css">
+
+
   <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="./dist/vuefire.js"></script>
+  
 </head>
 
 <body>
@@ -17,43 +23,42 @@
       <div id="form-wrapper">
         <h1 class="page-title">慈善亭</h1>
         <h1 class="page-title"> <a href="Index.html">新增</a> | <a href="Search.html">搜尋</a> | <a
-            href="Overview.html">總覽</a></h1>
+            href="Overview.html">總覽</a> | <a href="Download.html">總覽</a> </h1>
         <button v-on:click="loadData">載入資料</button>
       </div>
-      <ul>
-        <li v-for="data in overviewData">
-          <div id="form-wrapper">
-
-            姓名<input :name="data.name" v-model.trim="data.name">
-            電話<input :name="data.phone" v-model.trim="data.phone">
-            <br>
-            生時八字<br>
-            <select v-model.trim="data.isChineeseYear" value=data.isChineeseYear>
-              　<option value="農曆">農曆</option>
-              　<option value="國曆">國曆</option>
-            </select>
-            民國
-            <input :name="data.year" v-model.trim="data.year" id="time">年
-            <input :name="data.month" v-model.trim="data.month" id="time">月
-            <input :name="data.day" v-model.trim="data.day" id="time">日
-            <input :name="data.minute" v-model.trim="data.minute" id="time">時生
-            <br>
-            地址：<input :name="data.address" v-model.trim="data.address" id="address">
-            <br>
-            備註：<input :name="data.memo" v-model.trim="data.memo" id="memo">
-            <br>
-            <button v-on:click="updateUser(data)">更新</button>
-            <button v-on:click="removeUser(data)">刪除</button>
-            <button v-on:click="copyUser(data)">複製</button>
-          </div>
-        </li>
-      </ul>
-
 
     </section>
+    <ul>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <td>姓名</td>
+            <td>電話</td>
+            <td>國曆/農曆</td>
+            <td>年</td>
+            <td>月</td>
+            <td>日</td>
+            <td>時</td>
+            <td>地址</td>
+            <td>備註</td>
+          </tr>
+        </thead>
+        <tr v-for="data in overviewData">
 
-
-
+          <td> <input id="overview_name" :name="data.name" v-model.trim="data.name"></td>
+          <td> <input id="overview_phone" :name="data.phone" v-model.trim="data.phone"></td>
+          <td> <input id="overview_isChineeseYear" :name="data.isChineeseYear" v-model.trim="data.isChineeseYear"></td>
+          <td> <input id="overview_date" :name="data.year" v-model.trim="data.year"></td>
+          <td> <input id="overview_date" :name="data.month" v-model.trim="data.month"></td>
+          <td> <input id="overview_date" :name="data.day" v-model.trim="data.day"></td>
+          <td> <input id="overview_date" :name="data.minute" v-model.trim="data.minute"></td>
+          <td> <input id="overview_address" :name="data.address" v-model.trim="data.address"></td>
+          <td> <input id="overview_memo" :name="data.memo" v-model.trim="data.memo"></td>
+          <td> <button id="overview_button" v-on:click="updateUser(data)">更新</button></td>
+          <td> <button id="overview_button" v-on:click="removeUser(data)">刪除</button></td>
+        </tr>
+      </table>
+    </ul>
   </div>
 
   <script>
