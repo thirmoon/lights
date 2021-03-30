@@ -1,0 +1,24 @@
+
+#overview_name {
+    width: 80px;
+}
+
+#overview_phone {
+    width: 110px;
+}
+
+#overview_isChineeseYear {
+    width: 50px;
+}
+
+#overview_date {
+    width: 35px;
+}
+
+#overview_address {
+    width: 400px;
+}
+
+#overview_memo {
+    width: 150px;
+}
