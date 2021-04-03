@@ -13,7 +13,7 @@
   <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="./dist/vuefire.js"></script>
-  
+
 </head>
 
 <body>
@@ -23,7 +23,7 @@
       <div id="form-wrapper">
         <h1 class="page-title">慈善亭</h1>
         <h1 class="page-title"> <a href="Index.html">新增</a> | <a href="Search.html">搜尋</a> | <a
-            href="Overview.html">總覽</a> | <a href="Download.html">總覽</a> </h1>
+            href="Overview.html">總覽</a> </h1>
         <button v-on:click="loadData">載入資料</button>
       </div>
 
@@ -94,22 +94,23 @@
           userRef.once("value", function (snapshot) {
             let i = 0;
             snapshot.forEach(function (data) {
-              if (i < 100) {
-                let user = data.val();
-                user.key = data.key;
-                self.overviewData.push(user);
-              }
-              i++;
+              // if (i < 100) {
+              let user = data.val();
+              user.key = data.key;
+              self.overviewData.push(user);
+              // }
+              // i++;
             });
           });
         },
 
 
         updateUser: function (data) {
+          console.log(data)
           data.isAftermoon = '上午';
           data.lightType = '信徒';
           data.hour = 0;
-          userRef.child(data.key).set(data.user);
+          userRef.child(data.key).set(data);
           alert('更新完成')
           location.reload();
         },
