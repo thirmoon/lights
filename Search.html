@@ -127,35 +127,39 @@
           let self = this;
           this.searchResultData = []
           userRef.once("value", function (snapshot) {
-            userRef.once("value", function (snapshot) {
-              snapshot.forEach(function (data) {
-                let user = data.val();
-                if (user.name.includes(self.search.name)) {
-                  user.key = data.key;
-                  self.searchResultData.push(user);
-                }
-              });
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.name.includes(self.search.name)) {
+                user.key = data.key;
+                self.searchResultData.push(user);
+              }
             });
-
+            if (self.searchResultData.length == 0) {
+              alert('無此資料')
+            }
           });
 
         },
         searchUserByAddress: function () {
           let self = this;
           this.searchResultData = []
+
           userRef.once("value", function (snapshot) {
-            userRef.once("value", function (snapshot) {
-              snapshot.forEach(function (data) {
-                let user = data.val();
-                if (user.address.includes(self.search.address)) {
-                  user.key = data.key;
-                  self.searchResultData.push(user);
-                }
-                self.searchResultData = self.searchResultData.sort(function (a, b) {
-                  return a.address > b.address ? -1 : 1;
-                });
-              });
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.address.includes(self.search.address)) {
+                user.key = data.key;
+                self.searchResultData.push(user);
+              }
             });
+            if (self.searchResultData.length > 0) {
+              self.searchResultData = self.searchResultData.sort(function (a, b) {
+                return a.address > b.address ? -1 : 1;
+              });
+            }
+            else {
+              alert('無此資料')
+            }
 
           });
 
