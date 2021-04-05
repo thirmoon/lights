@@ -136,7 +136,7 @@
                 }
               });
             });
-         
+
           });
 
         },
@@ -151,9 +151,12 @@
                   user.key = data.key;
                   self.searchResultData.push(user);
                 }
+                self.searchResultData = self.searchResultData.sort(function (a, b) {
+                  return a.address > b.address ? -1 : 1;
+                });
               });
             });
-         
+
           });
 
         },
@@ -194,7 +197,7 @@
           data.lightType = '信徒';
           data.hour = 0;
           let key = data.key;
-          delete data.key; 
+          delete data.key;
           userRef.child(key).set(data);
           alert('更新完成')
           location.reload();
