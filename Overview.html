@@ -92,15 +92,19 @@
           let self = this;
           this.overviewData = []
           userRef.once("value", function (snapshot) {
-            let i = 0;
+          
             snapshot.forEach(function (data) {
-              // if (i < 100) {
+           
               let user = data.val();
               user.key = data.key;
               self.overviewData.push(user);
-              // }
-              // i++;
+            
             });
+          
+            self.overviewData =  self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+
           });
         },
 
