@@ -17,8 +17,8 @@
       <div id="form-wrapper">
         <h1 class="page-title">慈善亭</h1>
         <h1 class="page-title"> <a href="Index.html">新增</a> | <a href="Search.html">搜尋</a> | <a
-            href="Overview.html">總覽</a></h1>
-
+            href="Overview.html">總覽</a>| <a href="Download.html">下載</a></h1>
+        <br>
         姓名：<input v-model.trim="search.name" placeholder="姓名">
         <button v-on:click="searchUser">搜尋</button>
         <br>
@@ -200,6 +200,7 @@
           data.isAftermoon = '上午';
           data.lightType = '信徒';
           data.hour = 0;
+          data.modifyTime = Date.now();
           let key = data.key;
           delete data.key;
           userRef.child(key).set(data);
