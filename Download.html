@@ -96,7 +96,9 @@
         <h1 class="page-title">慈善亭</h1>
         <h1 class="page-title"> <a href="Index.html">新增</a> | <a href="Search.html">搜尋</a> | <a
             href="Overview.html">總覽</a> </h1>
-        <button v-on:click="loadData">載入資料</button>
+        <button v-on:click="loadAllData">載入所有資料</button>
+        <button v-on:click="loadTodayData">載入當天修改資料</button>
+        <button v-on:click="loadUniqueData">載入點燈用資料(去除重複、過濾年紀)</button>
         <button type="button" onclick="downloadToExcel('tableExcel')">下載</button>
       </div>
 
@@ -127,7 +129,7 @@
           <td> {{data.minute}}</td>
           <td> {{data.address}}</td>
           <td> {{data.memo}}</td>
-         
+
         </tr>
       </table>
     </ul>
@@ -151,7 +153,7 @@
       el: '#app',
       data: {
         overviewData: [],
-        copyUserData: [],
+        today: null,
         addMultipleUserStyle: {
           display: 'none'
         }
@@ -160,60 +162,57 @@
         Users: userRef.limitToLast(25),
       },
       methods: {
-        loadData: function () {
+        loadAllData: function () {
           let self = this;
           this.overviewData = []
           userRef.once("value", function (snapshot) {
-
             snapshot.forEach(function (data) {
-
               let user = data.val();
               user.key = data.key;
               self.overviewData.push(user);
 
             });
-
             self.overviewData = self.overviewData.sort(function (a, b) {
               return a.address > b.address ? -1 : 1;
             });
-
           });
         },
-
-
-        updateUser: function (data) {
-          console.log(data)
-          data.isAftermoon = '上午';
-          data.lightType = '信徒';
-          data.hour = 0;
-          userRef.child(data.key).set(data);
-          alert('更新完成')
-          location.reload();
+        loadTodayData: function () {
+          let self = this;
+          this.overviewData = []
+          var q = new Date(Date.now());
+          var m = q.getMonth();
+          var d = q.getDate();
+          var y = q.getFullYear();
+          this.today = new Date(y, m, d);
+          userRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              let modifyTime = new Date(user.modifyTime);
+              if (modifyTime > self.today) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
         },
-        removeUser: function (data) {
-          userRef.child(data.key).remove();
-          alert('刪除完成')
-          location.reload();
-        },
-        copyUser: function (data) {
-          let user = {
-            name: '',
-            phone: '',
-            address: data.user.address,
-            year: '',
-            month: '',
-            day: '',
-            hour: '0',
-            minute: '',
-            isAftermoon: '上午',
-            isChineeseYear: '農曆',
-            lightType: '信徒',
-            lightYear: '2018',
-            memo: '',
-            modifyTime: Date.now()
-          }
-          this.copyUserData.push(user);
-          this.addMultipleUserStyle.display = 'unset'
+        loadUniqueData: function () {
+          let self = this;
+          this.overviewData = []
+          userRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              user.key = data.key;
+              self.overviewData.push(user);
+
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
         },
       }
     })

@@ -200,6 +200,7 @@
           data.isAftermoon = '上午';
           data.lightType = '信徒';
           data.hour = 0;
+          data.modifyTime = Date.now();
           let key = data.key;
           delete data.key;
           userRef.child(key).set(data);

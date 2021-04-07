@@ -25,6 +25,7 @@
         <h1 class="page-title"> <a href="Index.html">新增</a> | <a href="Search.html">搜尋</a> | <a
             href="Overview.html">總覽</a> </h1>
         <button v-on:click="loadData">載入資料</button>
+        
       </div>
 
     </section>
@@ -110,9 +111,9 @@
 
 
         updateUser: function (data) {
-          console.log(data)
           data.isAftermoon = '上午';
           data.lightType = '信徒';
+          data.modifyTime = Date.now();
           data.hour = 0;
           userRef.child(data.key).set(data);
           alert('更新完成')
