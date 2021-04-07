@@ -202,12 +202,19 @@
         loadUniqueData: function () {
           let self = this;
           this.overviewData = []
+          this.overviewData = []
+          var q = new Date(Date.now());
+          var m = q.getMonth();
+          var d = q.getDate();
+          var y = q.getFullYear();
+          this.today = new Date(y, m, d);
           userRef.once("value", function (snapshot) {
             snapshot.forEach(function (data) {
               let user = data.val();
               user.key = data.key;
-              self.overviewData.push(user);
-
+              let age = self.today.getFullYear() - (parseInt(user.year, 10) + 1911);
+              if (age < 75 && age > 18)
+                self.overviewData.push(user);
             });
             self.overviewData = self.overviewData.sort(function (a, b) {
               return a.address > b.address ? -1 : 1;
