@@ -45,6 +45,21 @@
             <br>
             地址：<input :name="data.address" v-model.trim="data.address" id="address">
             <br>
+            <input type="checkbox" id="lightType" v-model.trim="data.lightType1">
+            <label for="lightType">太歲燈</label>
+            <input type="checkbox" id="lightType" v-model.trim="data.lightType2">
+            <label for="lightType">財神燈</label>
+            <input type="checkbox" id="lightType" v-model.trim="data.lightType3">
+            <label for="lightType">文昌燈</label>
+            <input type="checkbox" id="lightType" v-model.trim="data.lightType4">
+            <label for="lightType">長明燈</label>
+            <input type="checkbox" id="lightType" v-model.trim="data.lightType5">
+            <label for="lightType">藥師燈</label>
+            <input type="checkbox" id="lightType" v-model.trim="data.lightType6">
+            <label for="lightType">光明燈</label>
+            <input type="checkbox" id="lightType" v-model.trim="data.lightType7">
+            <label for="lightType">姻緣燈</label>
+            <br>
             備註：<input :name="data.memo" v-model.trim="data.memo" id="memo">
             <br>
             <button v-on:click="updateUser(data)">更新</button>
@@ -72,6 +87,21 @@
             <input :name="data.minute" v-model.trim="data.minute" id="time">時生
             <br>
             地址：<input :name="data.address" v-model.trim="data.address" id="address">
+            <br>
+            <input type="checkbox" id="lightType" v-model.trim="data.lightType1">
+            <label for="lightType">太歲燈</label>
+            <input type="checkbox" id="lightType" v-model.trim="data.lightType2">
+            <label for="lightType">財神燈</label>
+            <input type="checkbox" id="lightType" v-model.trim="data.lightType3">
+            <label for="lightType">文昌燈</label>
+            <input type="checkbox" id="lightType" v-model.trim="data.lightType4">
+            <label for="lightType">長明燈</label>
+            <input type="checkbox" id="lightType" v-model.trim="data.lightType5">
+            <label for="lightType">藥師燈</label>
+            <input type="checkbox" id="lightType" v-model.trim="data.lightType6">
+            <label for="lightType">光明燈</label>
+            <input type="checkbox" id="lightType" v-model.trim="data.lightType7">
+            <label for="lightType">姻緣燈</label>
             <br>
             備註：<input :name="data.memo" v-model.trim="data.memo" id="memo">
             <br>
@@ -191,6 +221,13 @@
             lightType: '信徒',
             lightYear: '2018',
             memo: '',
+            lightType1: false,
+            lightType2: false,
+            lightType3: false,
+            lightType4: false,
+            lightType5: false,
+            lightType6: false,
+            lightType7: false,
             modifyTime: Date.now()
           }
           this.copyUserData.push(user);
@@ -237,6 +274,13 @@
             lightType: user.lightType,
             lightYear: user.lightYear,
             memo: user.memo,
+            lightType1: user.lightType1,
+            lightType2: user.lightType2,
+            lightType3: user.lightType3,
+            lightType4: user.lightType4,
+            lightType5: user.lightType5,
+            lightType6: user.lightType6,
+            lightType7: user.lightType7,
             modifyTime: Date.now()
           })
         },
