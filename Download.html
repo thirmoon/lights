@@ -97,7 +97,21 @@
             href="Overview.html">總覽</a> | <a href="Download.html">下載</a></h1>
         <button v-on:click="loadAllData">載入所有資料</button>
         <button v-on:click="loadTodayData">載入當天修改資料</button>
-        <button v-on:click="loadUniqueData">載入點燈用資料(過濾年紀)</button>
+        <!-- <button v-on:click="loadUniqueData">載入點燈用資料(過濾年紀)</button> -->
+        <br>
+        <br>
+        <button v-on:click="loadLight1">載入太歲燈資料</button>
+        <button v-on:click="loadLight2">載入財神燈資料</button>
+        <button v-on:click="loadLight3">載入文昌燈資料</button>
+        <br>
+        <br>
+        <button v-on:click="loadLight4">載入長明燈資料</button>
+        <button v-on:click="loadLight5">載入藥師燈資料</button>
+        <button v-on:click="loadLight6">載入光明燈資料</button>
+        <br>
+        <br>
+        <button v-on:click="loadLight7">載入姻緣燈資料</button>
+
         <br>
         <br>
 
@@ -110,43 +124,22 @@
         <thead>
           <tr>
             <td>姓名</td>
-            <td>電話</td>
-            <td>國曆/農曆</td>
+            <td>地址</td>
             <td>年</td>
             <td>月</td>
             <td>日</td>
             <td>時</td>
-            <td>地址</td>
-            <td>太歲燈</td>
-            <td>財神燈</td>
-            <td>文昌燈</td>
-            <td>長明燈</td>
-            <td>藥師燈</td>
-            <td>光明燈</td>
-            <td>姻緣燈</td>
-            <td>備註</td>
+
           </tr>
         </thead>
         <tr v-for="data in overviewData">
 
           <td> {{data.name}}</td>
-          <td> {{data.phone}}</td>
-          <td> {{data.isChineeseYear}}</td>
+          <td> {{data.address}}</td>
           <td> {{data.year}}</td>
           <td> {{data.month}}</td>
           <td> {{data.day}}</td>
           <td> {{data.minute}}</td>
-          <td> {{data.address}}</td>
-          <td> {{data.lightType1==true ? '點' :''}}</td>
-          <td> {{data.lightType2==true ? '點' :''}}</td>
-          <td> {{data.lightType3==true ? '點' :''}}</td>
-          <td> {{data.lightType4==true ? '點' :''}}</td>
-          <td> {{data.lightType5==true ? '點' :''}}</td>
-          <td> {{data.lightType6==true ? '點' :''}}</td>
-          <td> {{data.lightType7==true ? '點' :''}}</td>
-
-          
-          <td> {{data.memo}}</td>
 
         </tr>
       </table>
@@ -239,6 +232,130 @@
             });
           });
         },
+        loadLight1: function () {
+          let self = this;
+          this.overviewData = []
+          userRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.lightType1 == true) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
+        },
+        loadLight2: function () {
+          let self = this;
+          this.overviewData = []
+          userRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.lightType2 == true) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
+        }, loadLight3: function () {
+          let self = this;
+          this.overviewData = []
+          userRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.lightType3 == true) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
+        }, loadLight4: function () {
+          let self = this;
+          this.overviewData = []
+          userRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.lightType4 == true) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
+        }, loadLight5: function () {
+          let self = this;
+          this.overviewData = []
+          userRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.lightType5 == true) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
+        }, loadLight6: function () {
+          let self = this;
+          this.overviewData = []
+          userRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.lightType6 == true) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
+        }, loadLight1: function () {
+          let self = this;
+          this.overviewData = []
+          userRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.lightType1 == true) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
+        }, loadLight7: function () {
+          let self = this;
+          this.overviewData = []
+          userRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.lightType7 == true) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            self.overviewData = self.overviewData.sort(function (a, b) {
+              return a.address > b.address ? -1 : 1;
+            });
+          });
+        },
+
+
       }
     })
   </script>
