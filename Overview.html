@@ -24,7 +24,7 @@
         <h1 class="page-title"> <a href="Index.html">新增</a> | <a href="Search.html">搜尋</a> | <a
             href="Overview.html">總覽</a> | <a href="Download.html">下載</a></h1>
         <button v-on:click="loadData">載入資料</button>
-        
+
       </div>
 
     </section>
@@ -40,6 +40,14 @@
             <td>日</td>
             <td>時</td>
             <td>地址</td>
+            <td>太歲燈</td>
+            <td>財神燈</td>
+            <td>文昌燈</td>
+            <td>長明燈</td>
+            <td>藥師燈</td>
+            <td>光明燈</td>
+            <td>姻緣燈</td>
+
             <td>備註</td>
           </tr>
         </thead>
@@ -53,7 +61,15 @@
           <td> <input id="overview_date" :name="data.day" v-model.trim="data.day"></td>
           <td> <input id="overview_date" :name="data.minute" v-model.trim="data.minute"></td>
           <td> <input id="overview_address" :name="data.address" v-model.trim="data.address"></td>
+          <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType1"></td>
+          <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType2"></td>
+          <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType3"></td>
+          <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType4"></td>
+          <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType5"></td>
+          <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType6"></td>
+          <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType7"></td>
           <td> <input id="overview_memo" :name="data.memo" v-model.trim="data.memo"></td>
+
           <td> <button id="overview_button" v-on:click="updateUser(data)">更新</button></td>
           <td> <button id="overview_button" v-on:click="removeUser(data)">刪除</button></td>
         </tr>
@@ -79,10 +95,7 @@
       el: '#app',
       data: {
         overviewData: [],
-        copyUserData: [],
-        addMultipleUserStyle: {
-          display: 'none'
-        }
+
       },
       firebase: {
         Users: userRef.limitToLast(25),
@@ -92,16 +105,16 @@
           let self = this;
           this.overviewData = []
           userRef.once("value", function (snapshot) {
-          
+
             snapshot.forEach(function (data) {
-           
+
               let user = data.val();
               user.key = data.key;
               self.overviewData.push(user);
-            
+
             });
-          
-            self.overviewData =  self.overviewData.sort(function (a, b) {
+
+            self.overviewData = self.overviewData.sort(function (a, b) {
               return a.address > b.address ? -1 : 1;
             });
 
@@ -123,26 +136,7 @@
           alert('刪除完成')
           location.reload();
         },
-        copyUser: function (data) {
-          let user = {
-            name: '',
-            phone: '',
-            address: data.user.address,
-            year: '',
-            month: '',
-            day: '',
-            hour: '0',
-            minute: '',
-            isAftermoon: '上午',
-            isChineeseYear: '農曆',
-            lightType: '信徒',
-            lightYear: '2018',
-            memo: '',
-            modifyTime: Date.now()
-          }
-          this.copyUserData.push(user);
-          this.addMultipleUserStyle.display = 'unset'
-        },
+       
       }
     })
   </script>
