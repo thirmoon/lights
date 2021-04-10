@@ -117,6 +117,13 @@
             <td>日</td>
             <td>時</td>
             <td>地址</td>
+            <td>太歲燈</td>
+            <td>財神燈</td>
+            <td>文昌燈</td>
+            <td>長明燈</td>
+            <td>藥師燈</td>
+            <td>光明燈</td>
+            <td>姻緣燈</td>
             <td>備註</td>
           </tr>
         </thead>
@@ -130,6 +137,15 @@
           <td> {{data.day}}</td>
           <td> {{data.minute}}</td>
           <td> {{data.address}}</td>
+          <td> {{data.lightType1==true ? '點' :''}}</td>
+          <td> {{data.lightType2==true ? '點' :''}}</td>
+          <td> {{data.lightType3==true ? '點' :''}}</td>
+          <td> {{data.lightType4==true ? '點' :''}}</td>
+          <td> {{data.lightType5==true ? '點' :''}}</td>
+          <td> {{data.lightType6==true ? '點' :''}}</td>
+          <td> {{data.lightType7==true ? '點' :''}}</td>
+
+          
           <td> {{data.memo}}</td>
 
         </tr>
