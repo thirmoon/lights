@@ -16,7 +16,8 @@
     <section id="admin-wrapper">
       <div id="form-wrapper">
         <h1 class="page-title">慈善亭</h1>
-        <h1 class="page-title"> <a href="Index.html">新增</a> | <a href="Search.html">搜尋</a> | <a href="Overview.html">總覽</a>| <a href="Download.html">下載</a></h1>
+        <h1 class="page-title"> <a href="Index.html">新增</a> | <a href="Search.html">搜尋</a> | <a
+            href="Overview.html">總覽</a>| <a href="Download.html">下載</a></h1>
       </div>
       <ul>
         <li v-for="data in copyUserData">
@@ -64,6 +65,21 @@
         <br>
         地址：<input v-model.trim="newUser.address" placeholder="地址" id="address">
         <br>
+        <input type="checkbox" id="lightType" v-model.trim="newUser.lightType1">
+        <label for="lightType">太歲燈</label>
+        <input type="checkbox" id="lightType" v-model.trim="newUser.lightType2">
+        <label for="lightType">財神燈</label>
+        <input type="checkbox" id="lightType" v-model.trim="newUser.lightType3">
+        <label for="lightType">文昌燈</label>
+        <input type="checkbox" id="lightType" v-model.trim="newUser.lightType4">
+        <label for="lightType">長明燈</label>
+        <input type="checkbox" id="lightType" v-model.trim="newUser.lightType5">
+        <label for="lightType">藥師燈</label>
+        <input type="checkbox" id="lightType" v-model.trim="newUser.lightType6">
+        <label for="lightType">光明燈</label>
+        <input type="checkbox" id="lightType" v-model.trim="newUser.lightType7">
+        <label for="lightType">姻緣燈</label>
+        <br>
         備註：<input v-model.trim="newUser.memo" placeholder="備註" id="address">
         <br>
         <button v-on:click="addUser">新增</button>
@@ -107,11 +123,19 @@
           lightType: '信徒',
           lightYear: '2018',
           memo: '',
+          lightType1: false,
+          lightType2: false,
+          lightType3: false,
+          lightType4: false,
+          lightType5: false,
+          lightType6: false,
+          lightType7: false,
+
           modifyTime: Date.now()
         },
         copyUserData: [],
-        addMultipleUserStyle:{
-          display:'none'
+        addMultipleUserStyle: {
+          display: 'none'
         }
       },
       firebase: {
@@ -133,6 +157,13 @@
             lightType: user.lightType,
             lightYear: user.lightYear,
             memo: user.memo,
+            lightType1: user.lightType1,
+            lightType2: user.lightType2,
+            lightType3: user.lightType3,
+            lightType4: user.lightType4,
+            lightType5: user.lightType5,
+            lightType6: user.lightType6,
+            lightType7: user.lightType7,
             modifyTime: Date.now()
           })
         },
@@ -153,6 +184,13 @@
               lightType: '信徒',
               lightYear: '2018',
               memo: '',
+              lightType1: false,
+              lightType2: false,
+              lightType3: false,
+              lightType4: false,
+              lightType5: false,
+              lightType6: false,
+              lightType7: false,
               modifyTime: Date.now()
             }
             location.reload();
@@ -183,6 +221,13 @@
             lightType: '信徒',
             lightYear: '2018',
             memo: '',
+            lightType1: false,
+            lightType2: false,
+            lightType3: false,
+            lightType4: false,
+            lightType5: false,
+            lightType6: false,
+            lightType7: false,
             modifyTime: Date.now()
           }
           this.copyUserData.push(user);
