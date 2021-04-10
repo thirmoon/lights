@@ -33,13 +33,11 @@
         <thead>
           <tr>
             <td>姓名</td>
-            <td>電話</td>
-            <td>國曆/農曆</td>
+            <td>地址</td>
             <td>年</td>
             <td>月</td>
             <td>日</td>
             <td>時</td>
-            <td>地址</td>
             <td>太歲燈</td>
             <td>財神燈</td>
             <td>文昌燈</td>
@@ -47,20 +45,20 @@
             <td>藥師燈</td>
             <td>光明燈</td>
             <td>姻緣燈</td>
-
+            <td>國曆/農曆</td>
+            <td>電話</td>
+            
             <td>備註</td>
           </tr>
         </thead>
         <tr v-for="data in overviewData">
 
           <td> <input id="overview_name" :name="data.name" v-model.trim="data.name"></td>
-          <td> <input id="overview_phone" :name="data.phone" v-model.trim="data.phone"></td>
-          <td> <input id="overview_isChineeseYear" :name="data.isChineeseYear" v-model.trim="data.isChineeseYear"></td>
+          <td> <input id="overview_address" :name="data.address" v-model.trim="data.address"></td>
           <td> <input id="overview_date" :name="data.year" v-model.trim="data.year"></td>
           <td> <input id="overview_date" :name="data.month" v-model.trim="data.month"></td>
           <td> <input id="overview_date" :name="data.day" v-model.trim="data.day"></td>
           <td> <input id="overview_date" :name="data.minute" v-model.trim="data.minute"></td>
-          <td> <input id="overview_address" :name="data.address" v-model.trim="data.address"></td>
           <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType1"></td>
           <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType2"></td>
           <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType3"></td>
@@ -68,6 +66,8 @@
           <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType5"></td>
           <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType6"></td>
           <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType7"></td>
+          <td> <input id="overview_isChineeseYear" :name="data.isChineeseYear" v-model.trim="data.isChineeseYear"></td>
+          <td> <input id="overview_phone" :name="data.phone" v-model.trim="data.phone"></td>
           <td> <input id="overview_memo" :name="data.memo" v-model.trim="data.memo"></td>
 
           <td> <button id="overview_button" v-on:click="updateUser(data)">更新</button></td>
