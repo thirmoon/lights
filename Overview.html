@@ -129,12 +129,10 @@
           data.hour = 0;
           userRef.child(data.key).set(data);
           alert('更新完成')
-          location.reload();
         },
         removeUser: function (data) {
           userRef.child(data.key).remove();
           alert('刪除完成')
-          location.reload();
         },
        
       }
