@@ -241,13 +241,11 @@
           let key = data.key;
           delete data.key;
           userRef.child(key).set(data);
-          alert('更新完成')
-          location.reload();
+          alert('更新完成');
         },
         removeUser: function (data) {
           userRef.child(data.key).remove();
-          alert('刪除完成')
-          location.reload();
+          alert('刪除完成');
         },
         addMultipleUser: function () {
           let self = this;
@@ -256,7 +254,6 @@
               self.addUserToFirebase(user);
             });
             this.copyUserData = [];
-            location.reload();
           }
         },
         addUserToFirebase: function (user) {
