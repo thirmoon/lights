@@ -103,6 +103,8 @@
       storageBucket: 'light-1a6d4.appspot.com',
       messagingSenderId: '66654715141'
     }
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
 
     let db = firebase.initializeApp(config).database()
     let userRef = db.ref('User')
@@ -110,9 +112,9 @@
       el: '#app',
       data: {
         newUser: {
-          name: '',
+          name: params.name,
           phone: '',
-          address: '',
+          address: params.address,
           year: '',
           month: '',
           day: '',

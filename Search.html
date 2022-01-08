@@ -165,7 +165,8 @@
               }
             });
             if (self.searchResultData.length == 0) {
-              alert('無此資料')
+              alert('無此資料');
+              location.href = 'Index.html?name=' + self.search.name ;
             }
           });
 
@@ -188,7 +189,9 @@
               });
             }
             else {
-              alert('無此資料')
+              alert('無此資料');
+              location.href = 'Index.html?address=' + self.search.address ;
+
             }
 
           });
