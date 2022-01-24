@@ -10,7 +10,11 @@
 
 
   <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
   <script src="./dist/vuefire.js"></script>
 
 </head>
@@ -21,70 +25,101 @@
     <section id="admin-wrapper">
       <div id="form-wrapper">
         <h1 class="page-title">慈善亭</h1>
-        <h1 class="page-title"> 
-          <a href="Index.html">新增</a> | 
-          <a href="Search.html">搜尋</a> | 
+        <h1 class="page-title">
+          <a href="Index.html">新增</a> |
+          <a href="Search.html">搜尋</a> |
           <a href="Overview.html">總覽</a>
         </h1>
-        <h1 class="page-title"> 
-          <a href="Download-v1.html">下載(舊版)</a> | 
+        <h1 class="page-title">
+          <a href="Download-v1.html">下載(舊版)</a> |
           <a href="Download-v2.html">下載(新版)</a>
         </h1>
-        <button v-on:click="loadData">載入資料</button>
 
       </div>
 
     </section>
     <ul>
-      <table class="table table-striped">
-        <thead class="table-header">
-          <tr>
-            <td>姓名</td>
-            <td>地址</td>
-            <td>年</td>
-            <td>月</td>
-            <td>日</td>
-            <td>時</td>
-            <td>太歲燈</td>
-            <td>財神燈</td>
-            <td>文昌燈</td>
-            <td>長明燈</td>
-            <td>藥師燈</td>
-            <td>光明燈</td>
-            <td>姻緣燈</td>
-            <td>國曆/農曆</td>
-            <td>電話</td>
-            
-            <td>備註</td>
-            <td></td>
-            <td></td>
-          </tr>
-        </thead>
-        <tr v-for="data in overviewData">
-
-          <td> <input id="overview_name" :name="data.name" v-model.trim="data.name"></td>
-          <td> <input id="overview_address" :name="data.address" v-model.trim="data.address"></td>
-          <td> <input id="overview_date" :name="data.year" v-model.trim="data.year"></td>
-          <td> <input id="overview_date" :name="data.month" v-model.trim="data.month"></td>
-          <td> <input id="overview_date" :name="data.day" v-model.trim="data.day"></td>
-          <td> <input id="overview_date" :name="data.minute" v-model.trim="data.minute"></td>
-          <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType1"></td>
-          <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType2"></td>
-          <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType3"></td>
-          <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType4"></td>
-          <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType5"></td>
-          <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType6"></td>
-          <td> <input type="checkbox" id="lightType" v-model.trim="data.lightType7"></td>
-          <td> <input id="overview_isChineeseYear" :name="data.isChineeseYear" v-model.trim="data.isChineeseYear"></td>
-          <td> <input id="overview_phone" :name="data.phone" v-model.trim="data.phone"></td>
-          <td> <input id="overview_memo" :name="data.memo" v-model.trim="data.memo"></td>
-
-          <td> <button id="overview_button" v-on:click="updateUser(data)">更新</button></td>
-          <td> <button id="overview_button" v-on:click="removeUser(data)">刪除</button></td>
-        </tr>
-      </table>
+      <div id="app-table"></div>>
     </ul>
   </div>
+  <script type="text/x-template" id="app-template">
+    <v-app id="inspire">
+      <ul>
+      <v-btn elevation="2"  v-on:click="addByName" >以姓名新增</v-btn>
+      <v-btn elevation="2"  v-on:click="addByAddress" >以地址新增</v-btn>
+      </ul>
+      <v-card>
+        <v-card-title>
+          <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details>
+          </v-text-field>
+        </v-card-title>
+        <v-data-table 
+          :headers="headers" 
+          :items="overviewData" 
+          :search="search" 
+          class="elevation-1" 
+          item-key="key"
+          :items-per-page="20">   
+          <template v-slot:item.name="{ item }">
+            <input :name="item.name"  id="overview_name" v-model.trim="item.name" maxlength="8">
+          </template>
+          <template v-slot:item.address="{ item }">
+            <input  :name="item.address" id="overview_address" v-model.trim="item.address">
+          </template>
+          <template v-slot:item.year="{ item }">
+            <input  :name="item.year" id="overview_date" v-model.trim="item.year" maxlength="4">
+          </template>
+          <template v-slot:item.month="{ item }">
+            <input  :name="item.month" id="overview_date" v-model.trim="item.month">
+          </template>
+          <template v-slot:item.day="{ item }">
+            <input  :name="item.day" id="overview_date" v-model.trim="item.day">
+          </template>
+          <template v-slot:item.minute="{ item }">
+            <input  :name="item.minute" id="overview_date" v-model.trim="item.minute">
+          </template>
+          <template v-slot:item.lightType1="{ item }">
+            <input type="checkbox"  v-model.trim="item.lightType1">
+          </template>
+          <template v-slot:item.lightType2="{ item }">
+            <input type="checkbox"  v-model.trim="item.lightType2">
+          </template>
+          <template v-slot:item.lightType3="{ item }">
+            <input type="checkbox"  v-model.trim="item.lightType3">
+          </template>
+          <template v-slot:item.lightType4="{ item }">
+            <input type="checkbox"  v-model.trim="item.lightType4">
+          </template>
+          <template v-slot:item.lightType5="{ item }">
+            <input type="checkbox"  v-model.trim="item.lightType5">
+          </template>
+          <template v-slot:item.lightType6="{ item }">
+            <input type="checkbox"  v-model.trim="item.lightType6">
+          </template>
+          <template v-slot:item.lightType7="{ item }">
+            <input type="checkbox"  v-model.trim="item.lightType7">
+          </template>
+          <template v-slot:item.isChineeseYear="{ item }">
+            <input  id="overview_name" :name="item.isChineeseYear" v-model.trim="item.isChineeseYear">
+          </template>
+          <template v-slot:item.phone="{ item }">
+            <input  :name="item.phone" v-model.trim="item.phone">
+          </template>
+          <template v-slot:item.memo="{ item }">
+            <input  :name="item.memo" v-model.trim="item.memo">
+          </template>
+          <template v-slot:item.actions="{ item }">
+            <v-icon small class="mr-2" @click="updateUser(item)">
+              mdi-pencil
+            </v-icon>
+            <v-icon small @click="removeUser(item)">
+            mdi-delete
+          </v-icon>
+          </template>
+        </v-data-table>
+      </v-card>
+    </v-app>
+  </script>
 
   <script>
     /* global Vue, firebase */
@@ -97,17 +132,43 @@
       storageBucket: 'light-1a6d4.appspot.com',
       messagingSenderId: '66654715141'
     }
-    this.searchResultData
+
     let db = firebase.initializeApp(config).database()
     let userRef = db.ref('User')
-    new Vue({
-      el: '#app',
-      data: {
-        overviewData: [],
+    const App = {
+      template: '#app-template',
+      data() {
+        return {
+          overviewData: [],
+          headers: [
+            { text: '姓名', value: 'name' },
+            { text: '地址', value: 'address' },
+            { text: '年', value: 'year' },
+            { text: '月', value: 'month' },
+            { text: '日', value: 'day' },
+            { text: '時', value: 'minute' },
+            { text: '太歲燈', value: 'lightType1' },
+            { text: '財神燈', value: 'lightType2' },
+            { text: '文昌燈', value: 'lightType3' },
+            { text: '長明燈', value: 'lightType4' },
+            { text: '藥師燈', value: 'lightType5' },
+            { text: '光明燈', value: 'lightType6' },
+            { text: '姻緣燈', value: 'lightType7' },
+            { text: '國曆/農曆', value: 'isChineeseYear' },
+            { text: '電話', value: 'phone' },
+            { text: '備註', value: 'memo' },
+            { text: '操作', value: 'actions' },
 
+          ],
+          search: ''
+
+        }
       },
       firebase: {
         Users: userRef.limitToLast(25),
+      },
+      beforeMount() {
+        this.loadData()
       },
       methods: {
         loadData: function () {
@@ -120,7 +181,6 @@
               let user = data.val();
               user.key = data.key;
               self.overviewData.push(user);
-
             });
 
             self.overviewData = self.overviewData.sort(function (a, b) {
@@ -129,23 +189,36 @@
 
           });
         },
-
-
+        addByName: function () {
+          location.href = 'Index.html?name=' + this.search;
+        },
+        addByAddress: function () {
+          location.href = 'Index.html?address=' + this.search;
+        },
         updateUser: function (data) {
           data.isAftermoon = '上午';
           data.lightType = '信徒';
           data.modifyTime = Date.now();
           data.hour = 0;
-          userRef.child(data.key).set(data);
+          let key = data.key;
+          delete data.key;
+          userRef.child(key).set(data);
           alert('更新完成')
         },
         removeUser: function (data) {
           userRef.child(data.key).remove();
           alert('刪除完成')
         },
-       
+
       }
-    })
+    }
+    new Vue({
+      vuetify: new Vuetify(),
+      render: h => h(App)
+    }).$mount('#app-table')
+
+
+
   </script>
 </body>
 
