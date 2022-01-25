@@ -28,18 +28,15 @@
         <h1 class="page-title">
           <a href="Index.html">新增</a> |
           <a href="Search.html">搜尋</a> |
-          <a href="Overview.html">總覽</a>
-        </h1>
-        <h1 class="page-title">
+          <a href="Overview.html">總覽</a> |
           <a href="Download-v1.html">下載(舊版)</a> |
           <a href="Download-v2.html">下載(新版)</a>
         </h1>
-
       </div>
 
     </section>
     <ul>
-      <div id="app-table"></div>>
+      <div id="app-table"></div>
     </ul>
   </div>
   <script type="text/x-template" id="app-template">
@@ -59,7 +56,9 @@
           :search="search" 
           class="elevation-1" 
           item-key="key"
-          :items-per-page="20">   
+          height="440"
+          fixed-header
+          :items-per-page="10">   
           <template v-slot:item.name="{ item }">
             <input :name="item.name"  id="overview_name" v-model.trim="item.name" maxlength="8">
           </template>
@@ -103,7 +102,7 @@
             <input  id="overview_name" :name="item.isChineeseYear" v-model.trim="item.isChineeseYear">
           </template>
           <template v-slot:item.phone="{ item }">
-            <input  :name="item.phone" v-model.trim="item.phone">
+            <input  :name="item.phone" v-model.trim="item.phone" id="overview_phone">
           </template>
           <template v-slot:item.memo="{ item }">
             <input  :name="item.memo" v-model.trim="item.memo">

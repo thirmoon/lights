@@ -1,10 +1,10 @@
 
 #overview_name {
-    width: 80px;
+    width: 60px;
 }
 
 #overview_phone {
-    width: 110px;
+    width: 90px;
 }
 
 #overview_isChineeseYear {
@@ -12,11 +12,11 @@
 }
 
 #overview_date {
-    width: 35px;
+    width: 30px;
 }
 
 #overview_address {
-    width: 310px;
+    width: 250px;
 }
 
 #overview_memo {
@@ -48,10 +48,9 @@ h1.page-title {
 #admin-wrapper{
     font-size: var(--main-font-size);
     margin-top: 50px;
-    width: 600px;
+    width: 900px;
     margin: 20px auto 20px auto;
     background-color: #ffffff;
-    padding: 30px 5px;
     border-radius: 5px;
     box-shadow: 3px 4px 5px #605d5dc9;
 }
@@ -63,7 +62,7 @@ h1.page-title {
 }
 
 #form-wrapper {
-    padding-bottom: 30px;
+    padding-bottom: 10px;
     padding-left: 10px;
     padding-right: 10px;
     font-family:'Microsoft JhengHei';
@@ -157,13 +156,5 @@ h1.page-title {
     color: #FF1654;
     background-color: #fff;
 }
-.table-header {
 
-   
-    top: 0;
-    position: sticky;
-    left: 0;
-    z-index: 1;
-    background-color: rgb(180, 185, 189);
-   
-   }
+  html, body {margin: 0; height: 100%; overflow: hidden}
