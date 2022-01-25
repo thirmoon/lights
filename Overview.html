@@ -50,7 +50,7 @@
       </ul>
       <v-card>
         <v-card-title>
-          <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details>
+          <v-text-field v-model="search" append-icon="mdi-magnify" label="搜尋" single-line hide-details>
           </v-text-field>
         </v-card-title>
         <v-data-table 
@@ -109,12 +109,8 @@
             <input  :name="item.memo" v-model.trim="item.memo">
           </template>
           <template v-slot:item.actions="{ item }">
-            <v-icon small class="mr-2" @click="updateUser(item)">
-              mdi-pencil
-            </v-icon>
-            <v-icon small @click="removeUser(item)">
-            mdi-delete
-          </v-icon>
+            <v-btn elevation="2"  v-on:click="updateUser(item)" >更新</v-btn>
+            <v-btn elevation="2"  v-on:click="removeUser(item)" >刪除</v-btn>
           </template>
         </v-data-table>
       </v-card>
@@ -154,10 +150,11 @@
             { text: '藥師燈', value: 'lightType5' },
             { text: '光明燈', value: 'lightType6' },
             { text: '姻緣燈', value: 'lightType7' },
+            { text: '操作', value: 'actions' },
             { text: '國曆/農曆', value: 'isChineeseYear' },
             { text: '電話', value: 'phone' },
-            { text: '備註', value: 'memo' },
-            { text: '操作', value: 'actions' },
+            { text: '備註', value: 'memo' }
+            
 
           ],
           search: ''
