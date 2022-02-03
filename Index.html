@@ -135,9 +135,9 @@
       el: '#app',
       data: {
         newUser: {
-          name: params.name,
+          name: (params.name != undefined) ? params.name : '' ,
           phone: '',
-          address: params.address,
+          address: (params.address != undefined) ? params.address : '',
           year: '',
           month: '',
           day: '',
