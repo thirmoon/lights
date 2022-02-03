@@ -200,6 +200,7 @@
           delete data.key;
           userRef.child(key).set(data);
           alert('更新完成')
+          this.loadData()
         },
         removeUser: function (data) {
           userRef.child(data.key).remove();
