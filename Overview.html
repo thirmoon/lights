@@ -205,6 +205,7 @@
         removeUser: function (data) {
           userRef.child(data.key).remove();
           alert('刪除完成')
+          this.loadData()
         },
 
       }
