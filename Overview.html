@@ -47,16 +47,16 @@
       </ul>
       <v-card>
         <v-card-title>
-          <v-text-field v-model="search" append-icon="mdi-magnify" label="搜尋" single-line hide-details>
-          </v-text-field>
+          <v-text-field v-model="search"  label="搜尋" single-line hide-details></v-text-field>
+          <v-btn elevation="2"  v-on:click="searchData" >鎖定搜尋</v-btn>
         </v-card-title>
         <v-data-table 
           :headers="headers" 
           :items="overviewData" 
-          :search="search" 
           class="elevation-1" 
           item-key="key"
           fixed-header
+          :search="search" 
           height="400px"
           :items-per-page="20">   
           <template v-slot:item.name="{ item }">
@@ -190,6 +190,32 @@
         },
         addByAddress: function () {
           location.href = 'Index.html?address=' + this.search;
+        },
+        searchData: function () {
+          let self = this;
+          this.overviewData = []
+
+          userRef.once("value", function (snapshot) {
+            snapshot.forEach(function (data) {
+              let user = data.val();
+              if (user.address.includes(self.search) ||user.name.includes(self.search)) {
+                user.key = data.key;
+                self.overviewData.push(user);
+              }
+            });
+            if (self.overviewData.length > 0) {
+              self.overviewData = self.overviewData.sort(function (a, b) {
+                return a.address > b.address ? -1 : 1;
+              });
+            }
+            else {
+              alert('無此資料');
+            }
+            self.search='';
+
+          });
+
+
         },
         updateUser: function (data) {
           data.isAftermoon = '上午';
